@@ -16,7 +16,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="faculty in info" :key="faculty.id">
+            <tr v-for="faculty in info" :key="faculty.id" >
                 <td>{{ faculty.name }}</td>
                 <td>{{ faculty.description }}</td>
                 <td>
