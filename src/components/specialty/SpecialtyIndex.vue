@@ -1,7 +1,7 @@
 <template>
 <div class="container-fluid">
-  <h1 class="h1">Факультеты</h1>
-  <b-button size="sm" v-b-modal.createFacultyModal class="button-create">Создать</b-button>
+  <h1 class="h1">Специальности</h1>
+  <b-button size="sm" v-b-modal.createDepartmentModal class="button-create">Создать</b-button>
   <hr/>
   <section v-if="errored">
     <p>К сожалению, запрашиваемая информация не доступна в данный момент</p>
@@ -10,40 +10,40 @@
     </router-link>
   </section>
   <section v-else>
-    <!-- Отображение карточек факультетов -->
-    <faculty-modal-create/>
-    <!-- Отображение модального окна добавления факультета -->
-    <faculty-cards/>
+    <!-- Отображение кафедр -->
+    <department-cards/>
+    <!-- Модальное окно для создания новой кафедры -->
+    <department-modal-create/>
   </section>
 </div>
 </template>
 
 <script>
 import axios from 'axios'
-import FacultyCards from '@/components/faculty/FacultyCards'
-import FacultyModalCreate from '@/components/faculty/FacultyModalCreate'
+import DepartmentCards from '@/components/department/DepartmentCards'
+import DepartmentModalCreate from '@/components/department/DepartmentModalCreate'
 
 export default {
-  name: 'FacultyIndex',
+  name: 'DepartmentIndex',
 
   data () {
     return {
-      faculties: null,
+      departments: null,
       errored: false
     }
   },
 
   components: {
-    FacultyCards,
-    FacultyModalCreate
+    DepartmentCards,
+    DepartmentModalCreate
   },
 
   methods: {
-    getFaculties () {
+    getDepartments () {
       axios
-        .get('/faculties')
+        .get('/departments')
         .then(response => {
-          this.faculties = response.data
+          this.departments = response.data
         })
         .catch(error => {
           console.log(error)
@@ -53,7 +53,7 @@ export default {
   },
 
   mounted () {
-    this.getFaculties()
+    this.getDepartments()
   }
 }
 </script>

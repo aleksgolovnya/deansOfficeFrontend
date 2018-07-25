@@ -1,31 +1,38 @@
 <template>
   <div id="app">
-    <b-navbar toggleable="md" type="dark" variant="dark">
-      <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-      <b-navbar-brand to="/">Главная</b-navbar-brand>
-      <b-collapse is-nav id="nav_collapse">
-        <b-navbar-nav>
-          <b-nav-item to="/departments">Кафедры</b-nav-item>
-          <b-nav-item to="/faculties">Факультеты</b-nav-item>
-        </b-navbar-nav>
-      </b-collapse>
-    </b-navbar>
-    <router-view/>
+    <!-- Навигация -->
+      <nav-bar/>
+
+      <router-view/>
+
+    <!-- Футер -->
+      <footer-bar/>
   </div>
 </template>
 
 <script>
+import NavBar from '@/components/Navbar.vue'
+import FooterBar from '@/components/FooterBar.vue'
+
 export default {
-  name: 'App'
+  name: 'App',
+
+  components: {
+    NavBar,
+    FooterBar
+  }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
 </style>

@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+<div class="container-fluid">
   <section v-if="errored" class="errored">
     <p>К сожалению, запрашиваемая информация не доступна в данный момент</p>
     <router-link to="/">
@@ -16,24 +16,15 @@
         </router-link>
       </div>
     </div>
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th>Название</th>
-        <th>Описание</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="department in departments" :key="department.id">
-        <td>
-          <router-link :to="'/departments/' + department.id">{{ department.name }}</router-link>
-        </td>
-        <td>{{ department.description }}</td>
-      </tr>
-      </tbody>
-    </table>
+    <hr/>
+    <b-button size="sm" v-b-modal.createDepartmentModal class="button-create">Создать кафедру</b-button>
+    <department-modal-create :facultyId="faculty.id"/>
+    <hr/>
+    <!-- Отображение кафедр данного факультета -->
+    <department-cards :facultyId="faculty.id"></department-cards>
+    <hr/>
     <router-link to="/faculties">
-      <b-button>Назад</b-button>
+      <b-button class="back-button">Назад</b-button>
     </router-link>
   </section>
 </div>
@@ -41,6 +32,8 @@
 
 <script>
 import axios from 'axios'
+import DepartmentCards from '@/components/department/DepartmentCards'
+import DepartmentModalCreate from '@/components/department/DepartmentModalCreate'
 
 export default {
   name: 'FacultyShow',
@@ -52,9 +45,13 @@ export default {
         name: '',
         description: ''
       },
-      departments: null,
       errored: false
     }
+  },
+
+  components: {
+    DepartmentCards,
+    DepartmentModalCreate
   },
 
   methods: {
@@ -70,25 +67,11 @@ export default {
             this.errored = true
           })
       }
-    },
-    getFacultyDepartments () {
-      if (this.faculty.id !== undefined) {
-        axios
-          .get(`/faculties/${this.faculty.id}/departments`)
-          .then(response => {
-            this.departments = response.data
-          })
-          .catch(error => {
-            console.log(error)
-            this.errored = true
-          })
-      }
     }
   },
 
   mounted () {
     this.getFaculty()
-    this.getFacultyDepartments()
   }
 }
 </script>
@@ -99,6 +82,14 @@ export default {
     font-size: 20px;
   }
   .jumbotron {
-    margin-top: 30px;
+    background-color: #f7f7f7;
+    padding: 20px;
+    margin-top: 25px;
+  }
+  .back-button {
+    margin-bottom: 25px;
+  }
+  .container-fluid {
+    padding: 0px;
   }
 </style>

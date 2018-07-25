@@ -1,39 +1,22 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import Faculty from '@/components/Faculty'
-import Department from '@/components/Department'
-import CreateDepartment from '@/components/CreateDepartment'
 import FacultyIndex from '@/components/faculty/FacultyIndex'
 import FacultyShow from '@/components/faculty/FacultyShow'
-import FacultyCreate from '@/components/faculty/FacultyCreate'
 import FacultyEdit from '@/components/faculty/FacultyEdit'
+import DepartmentIndex from '@/components/department/DepartmentIndex'
+import DepartmentShow from '@/components/department/DepartmentShow'
+import DepartmentEdit from '@/components/department/DepartmentEdit'
+import SpecialtyIndex from '@/components/specialty/SpecialtyIndex'
+import SpecialtyShow from '@/components/specialty/SpecialtyShow'
+import SpecialtyEdit from '@/components/specialty/SpecialtyEdit'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
-    {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
-    },
-    {
-      path: '/faculties-old',
-      name: 'Faculty',
-      component: Faculty
-    },
-    {
-      path: '/departments',
-      name: 'Department',
-      component: Department
-    },
-    {
-      path: '/departments/:id',
-      name: 'CreateDepartment',
-      component: CreateDepartment
-    },
-    /* Факультет */
+    /**
+     * Факультет
+     */
     {
       path: '/faculties',
       name: 'FacultyIndex',
@@ -46,14 +29,49 @@ export default new Router({
       props: true
     },
     {
-      path: '/faculties',
-      name: 'FacultyCreate',
-      component: FacultyCreate
-    },
-    {
       path: '/faculties/edit/:id',
       name: 'FacultyEdit',
       component: FacultyEdit
+    },
+
+    /**
+     * Кафедра
+     */
+    {
+      path: '/departments',
+      name: 'DepartmentIndex',
+      component: DepartmentIndex
+    },
+    {
+      path: '/departments/:id',
+      name: 'DepartmentShow',
+      component: DepartmentShow,
+      props: true
+    },
+    {
+      path: '/departments/edit/:id',
+      name: 'DepartmentEdit',
+      component: DepartmentEdit
+    },
+
+    /**
+     * Специальность
+     */
+    {
+      path: '/specialties',
+      name: 'SpecialtyIndex',
+      component: SpecialtyIndex
+    },
+    {
+      path: '/specialties/:id',
+      name: 'SpecialtyShow',
+      component: SpecialtyShow,
+      props: true
+    },
+    {
+      path: '/specialties/edit/:id',
+      name: 'SpecialtytEdit',
+      component: SpecialtyEdit
     }
   ]
 })
