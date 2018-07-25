@@ -28,6 +28,9 @@ module.exports = {
     'import/no-unresolved': 0,
     'import/no-dynamic-require': 0,
 
+  "skipBlankLines": true,
+  "ignoreComments": true,
+
     // allow async-await
     'generator-star-spacing': 'off',
     // allow debugger during development

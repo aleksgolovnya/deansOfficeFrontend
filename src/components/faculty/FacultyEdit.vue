@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-fluid">
     <section v-if="errored" class="errored">
       <p>К сожалению, запрашиваемая информация не доступна в данный момент</p>
       <router-link to="/">
@@ -14,7 +14,7 @@
         </div>
       </div>
       <div>
-      <b-form @submit="onSubmit" v-if="show">
+      <b-form @submit="onSubmit" v-if="show" class="form-class">
         <b-form-group id="facultyNameLabel"
                       label="Название факультета:"
                       label-for="facultyName"
@@ -84,7 +84,7 @@ export default {
     },
     deleteFaculty () {
       const departments = this.getFacultyDepartments()
-      if (departments !== null) {
+      if (departments != null) {
         alert('Удаление факультета невозможно, так как он содержит кафедры.' +
           'Пожалуйста удалите или перенесите кафедры с этого факультета.')
       } else {
@@ -142,10 +142,18 @@ export default {
 </script>
 
 <style scoped>
-.jumbotron {
-  background-color: #f7f7f7;
-  padding: 20px;
-  padding-bottom: 10px;
-  margin-top: 25px;
-}
+  .jumbotron {
+    background-color: #f7f7f7;
+    padding: 20px;
+    padding-bottom: 10px;
+    margin-top: 25px;
+  }
+  .form-class {
+    max-width: 1000px;
+    text-align: left;
+    margin: auto;
+  }
+  .container-fluid {
+    padding: 0px;
+  }
 </style>
