@@ -1,8 +1,8 @@
 <template>
   <div class="hero">
     <div>
-      <h1 class="display-3">Hello World</h1>
-      <p class="lead">This is the homepage of your vue app</p>
+      <h1 class="display-3">Добро пожаловать в университет!</h1>
+      <p class="lead">Надеюсь, что вам все понравится.</p>
     </div>
   </div>
 </template>
@@ -18,7 +18,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .hero {
     height: 90vh;

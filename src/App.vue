@@ -1,12 +1,13 @@
 <template>
   <div id="app">
     <!-- Навигация -->
-      <nav-bar/>
+    <nav-bar/>
 
-      <router-view/>
+    <!-- Контент страницы -->
+    <router-view/>
 
     <!-- Футер -->
-      <footer-bar/>
+    <footer-bar/>
   </div>
 </template>
 

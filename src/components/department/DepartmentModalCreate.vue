@@ -85,7 +85,6 @@ export default {
         })
         .catch(error => {
           console.log(error)
-          this.errored = true
         })
     },
     getFaculties () {
@@ -122,9 +121,8 @@ export default {
           console.log(error)
           alert('Ошибка при создании кафедры.')
         })
-        .finally(this.getDepartments())
+      this.$emit('createDepartment')
       this.$refs.modal.hide()
-      this.getDepartments()
     }
   },
 
