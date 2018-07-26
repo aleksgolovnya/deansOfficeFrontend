@@ -1,5 +1,7 @@
 import Vue from 'vue'
+import vueHeadful from 'vue-headful'
 import Router from 'vue-router'
+import HelloWorld from '@/components/HelloWorld'
 import FacultyIndex from '@/components/faculty/FacultyIndex'
 import FacultyShow from '@/components/faculty/FacultyShow'
 import FacultyEdit from '@/components/faculty/FacultyEdit'
@@ -11,9 +13,18 @@ import SpecialtyShow from '@/components/specialty/SpecialtyShow'
 import SpecialtyEdit from '@/components/specialty/SpecialtyEdit'
 
 Vue.use(Router)
+Vue.component('vue-headful', vueHeadful)
 
 export default new Router({
   routes: [
+    /**
+     * Стартовая страница
+     */
+    {
+      path: '/',
+      name: 'HelloWorld',
+      component: HelloWorld
+    },
     /**
      * Факультет
      */

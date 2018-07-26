@@ -9,9 +9,11 @@
 
       <b-navbar-nav>
         <!-- Факультеты -->
-        <b-nav-item-dropdown
+        <b-dropdown
           class="m-2"
           text="Факультеты"
+          split
+          size="sm"
           @click="goToFacultiesPage">
             <b-dropdown-item
               v-for="faculty in faculties"
@@ -20,12 +22,14 @@
               class="dropdown-item-text">
               {{ faculty.name }}
             </b-dropdown-item>
-        </b-nav-item-dropdown>
+        </b-dropdown>
 
         <!-- Кафедры -->
-        <b-nav-item-dropdown
+        <b-dropdown
           class="m-2"
           text="Кафедры"
+          split
+          size="sm"
           @click="goToDepartmentsPage">
           <b-dropdown-item
             v-for="department in departments"
@@ -34,14 +38,13 @@
             class="dropdown-item-text">
             {{ department.name }}
           </b-dropdown-item>
-        </b-nav-item-dropdown>
+        </b-dropdown>
 
         <!-- Специальности -->
         <b-dropdown
-          split
-          id="ddown-split"
           class="m-2"
           text="Специальности"
+          split
           size="sm"
           @click="goToSpecialtiesPage">
           <b-dropdown-item
@@ -53,7 +56,6 @@
           </b-dropdown-item>
         </b-dropdown>
       </b-navbar-nav>
-
     </b-collapse>
   </b-navbar>
 </template>
@@ -65,13 +67,39 @@ export default {
 
   data () {
     return {
+      faculty: {
+        id: this.$route.params.id,
+        name: '',
+        description: ''
+      },
       faculties: null,
       departments: null,
       specialties: null
     }
   },
 
+  created () {
+    this.getFaculty()
+  },
+
+  watch: {
+    '$route': 'getFaculty'
+  },
+
   methods: {
+    getFaculty () {
+      if (this.faculty.id !== undefined) {
+        axios
+          .get('faculties/' + this.$route.params.id)
+          .then(response => {
+            this.faculty = response.data
+          })
+          .catch(error => {
+            console.log(error)
+            this.errored = true
+          })
+      }
+    },
     getFaculties () {
       axios
         .get('/faculties')
@@ -124,5 +152,8 @@ export default {
 <style scoped>
   .dropdown-item-text {
     font-size: 13px;
+  }
+  .navbar {
+    float: left;
   }
 </style>

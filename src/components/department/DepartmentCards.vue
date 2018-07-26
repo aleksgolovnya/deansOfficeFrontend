@@ -1,5 +1,11 @@
 <template>
   <div class="container-fluid">
+    <hr/>
+    <b-button size="sm" v-b-modal.createDepartmentModal class="button-create">Создать кафедру</b-button>
+    <hr/>
+    <!-- Модальное окно создания новой кафедры -->
+    <department-modal-create :facultyId="facultyId" @createDepartment="getFacultyDepartments"></department-modal-create>
+
     <b-card-group
       deck
       class="mb-3"
@@ -21,6 +27,7 @@
 
 <script>
 import axios from 'axios'
+import DepartmentModalCreate from '@/components/department/DepartmentModalCreate'
 
 export default {
   name: 'DepartmentCards',
@@ -31,6 +38,10 @@ export default {
     return {
       departments: null
     }
+  },
+
+  components: {
+    DepartmentModalCreate
   },
 
   methods: {
