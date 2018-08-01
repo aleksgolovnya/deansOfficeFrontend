@@ -123,9 +123,10 @@ export default {
           console.log(error)
           alert('Ошибка при создании специальности.')
         })
-        .finally(this.getSpecialties())
-      this.$refs.modal.hide()
-      this.getSpecialties()
+        .then(success => {
+          this.$emit('createSpecialty')
+          this.$refs.modal.hide()
+        })
     }
   },
 

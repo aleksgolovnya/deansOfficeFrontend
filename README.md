@@ -18,4 +18,6 @@ npm run build
 npm run build --report
 ```
 
+Сервер для приложения должен быть запущен на порту 8080. Если вы используете другой порт для сервера, вам необходимо поменять axios.defaults.baseURL в main.js
+
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

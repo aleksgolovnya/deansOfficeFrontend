@@ -88,9 +88,10 @@ export default {
           console.log(error)
           alert('Ошибка при создании факультета.')
         })
-        .finally(this.getFaculties())
-      this.$refs.modal.hide()
-      this.getFaculties()
+        .then(success => {
+          this.$emit('createFaculty')
+          this.$refs.modal.hide()
+        })
     }
   },
 

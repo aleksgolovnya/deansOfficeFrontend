@@ -121,8 +121,10 @@ export default {
           console.log(error)
           alert('Ошибка при создании кафедры.')
         })
-      this.$emit('createDepartment')
-      this.$refs.modal.hide()
+        .then(success => {
+          this.$emit('createDepartment')
+          this.$refs.modal.hide()
+        })
     }
   },
 

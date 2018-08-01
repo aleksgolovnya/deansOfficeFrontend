@@ -120,7 +120,7 @@ export default {
         `/faculties/${this.faculty.id}`,
         this.faculty
       )
-        .then(resp => alert('saved'))
+        .then(resp => alert('Успешно сохраненно'))
         .catch(err => console.error(err))
     },
     onReset (evt) {

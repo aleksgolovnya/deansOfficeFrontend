@@ -56,7 +56,7 @@
       </b-form>
       </div>
       <hr/>
-      <router-link :to="'/faculties/' + department.facultyId">
+      <router-link :to="'/departments/' + this.department.id">
         <b-button>Назад</b-button>
       </router-link>
     </section>

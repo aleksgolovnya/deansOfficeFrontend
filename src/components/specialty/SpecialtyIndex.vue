@@ -1,6 +1,6 @@
 <template>
 <div class="container-fluid">
-  <h1 class="h1">Специальности</h1>
+  <h1 class="h1">Специальности университета</h1>
   <b-button size="sm" v-b-modal.createSpecialtyModal class="button-create">Создать</b-button>
   <hr/>
   <section v-if="errored">
@@ -28,14 +28,13 @@
       </b-card>
     </b-card-group>
     <!-- Модальное окно для создания новой специальности -->
-    <specialty-modal-create/>
+    <specialty-modal-create @createSpecialty="getSpecialties"></specialty-modal-create>
   </section>
 </div>
 </template>
 
 <script>
 import axios from 'axios'
-import SpecialtyCards from '@/components/specialty/SpecialtyCards'
 import SpecialtyModalCreate from '@/components/specialty/SpecialtyModalCreate'
 
 export default {
@@ -49,7 +48,6 @@ export default {
   },
 
   components: {
-    SpecialtyCards,
     SpecialtyModalCreate
   },
 
@@ -79,7 +77,7 @@ export default {
     font-size: 60px;
   }
   .container-fluid {
-    padding: 0px;
+    padding: 30px;
   }
   /* Styles for Specialty Cards */
   .mb-3 {

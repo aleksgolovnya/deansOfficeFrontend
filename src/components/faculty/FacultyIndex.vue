@@ -10,17 +10,32 @@
     </router-link>
   </section>
   <section v-else>
-    <!-- Отображение карточек факультетов -->
-    <faculty-modal-create/>
     <!-- Отображение модального окна добавления факультета -->
-    <faculty-cards/>
+    <faculty-modal-create @createFaculty="getFaculties"></faculty-modal-create>
+    <!-- Отображение карточек факультетов -->
+    <div class="container-fluid">
+      <b-card-group
+        deck
+        class="mb-3"
+        v-for="faculty in faculties"
+        :key="faculty.id">
+        <b-card :header="faculty.name" class="text-center">
+          <p class="card-text">{{ faculty.description }}</p>
+          <router-link :to="'/faculties/edit/' + faculty.id">
+            <b-button size="sm">Редактировать</b-button>
+          </router-link>
+          <router-link :to="'/faculties/' + faculty.id">
+            <b-button size="sm" variant="primary">Подробнее</b-button>
+          </router-link>
+        </b-card>
+      </b-card-group>
+    </div>
   </section>
 </div>
 </template>
 
 <script>
 import axios from 'axios'
-import FacultyCards from '@/components/faculty/FacultyCards'
 import FacultyModalCreate from '@/components/faculty/FacultyModalCreate'
 
 export default {
@@ -34,7 +49,6 @@ export default {
   },
 
   components: {
-    FacultyCards,
     FacultyModalCreate
   },
 
@@ -64,6 +78,18 @@ export default {
     font-size: 60px;
   }
   .container-fluid {
-    padding: 0px;
+    padding: 30px;
+  }
+  .mb-3 {
+    display: inline-block;
+    width: 48%;
+    margin: 10px;
+    max-width: 600px;
+  }
+  .text-center {
+    font-size: 25px;
+  }
+  .card-text {
+    font-size: 15px;
   }
 </style>
