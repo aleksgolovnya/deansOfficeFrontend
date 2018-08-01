@@ -41,7 +41,6 @@
         />
       </b-col>
     </b-row>
-    {{marks}}
   </div>
 </template>
 
@@ -97,14 +96,6 @@ export default {
     }
   },
 
-  // filters: {
-  //   formatDate: function (date) {
-  //     if (date) {
-  //       return moment(String(date)).format('DD/MM/YYYY')
-  //     }
-  //   }
-  // },
-
   mounted () {
     this.getStudentMarks()
   }
@@ -112,10 +103,6 @@ export default {
 </script>
 
 <style scoped>
-  .list-group-item {
-    color: #000;
-    text-align: left;
-  }
   .form-select-number-items {
     max-width: 400px;
   }

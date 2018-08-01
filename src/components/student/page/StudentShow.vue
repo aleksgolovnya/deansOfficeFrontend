@@ -25,10 +25,6 @@
           <student-marks :studentId="this.student.id"></student-marks>
         </b-col>
         <b-col class="right-section" cols="3">
-          <!--<div class="right-section-item">-->
-            <!--<h3 class="h3">Предметы</h3>-->
-            <!-- TODO: спиок предметов, при переходе по которым открывается журнал по этому предмету для этого студента -->
-          <!--</div>-->
           <div class="right-section-item">
             <h3 class="h3">Контакты</h3>
             <hr>
