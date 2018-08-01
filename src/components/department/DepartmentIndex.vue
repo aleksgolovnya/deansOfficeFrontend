@@ -1,6 +1,6 @@
 <template>
 <div class="container-fluid">
-  <h1 class="h1">Кафедры</h1>
+  <h1 class="h1">Кафедры университета</h1>
   <!-- Модальное окно для создания новой кафедры -->
   <department-modal-create @createDepartment="getDepartments"></department-modal-create>
   <!-- Кнопка вызова модального окна -->
@@ -24,34 +24,37 @@
       </b-card>
     </b-card-group>
   <hr>
-    <department-cards></department-cards>
 </div>
 </template>
 
 <script>
 import axios from 'axios'
-import DepartmentCards from '@/components/department/DepartmentCards'
 import DepartmentModalCreate from '@/components/department/DepartmentModalCreate'
+// import { mapState } from 'vuex'
 
 export default {
   name: 'DepartmentIndex',
 
+  components: {
+    DepartmentModalCreate
+  },
+
   data () {
     return {
-      department: {
-        name: '',
-        description: '',
-        facultyId: '',
-        faculty: {
-          name: '',
-          description: ''
-        }
-      },
-      show: true,
-      faculties: null,
       departments: []
     }
   },
+
+  // Vuex
+  // methods: {
+  //   ...mapState([
+  //     'departments'
+  //   ])
+  // },
+  //
+  // mounted () {
+  //   this.$store.dispatch('GET_DEPARTMENTS_LIST')
+  // }
 
   methods: {
     getDepartments () {
@@ -64,11 +67,6 @@ export default {
           console.log(error)
         })
     }
-  },
-
-  components: {
-    DepartmentCards,
-    DepartmentModalCreate
   },
 
   mounted () {
