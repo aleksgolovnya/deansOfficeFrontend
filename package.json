@@ -5,7 +5,6 @@
   "author": "aleksgolovnya <Rt564oPt28d>",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "lint": "eslint --ext .js,.vue src",
     "build": "node build/build.js"
   },
