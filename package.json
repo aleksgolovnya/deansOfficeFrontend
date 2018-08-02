@@ -2,7 +2,7 @@
   "name": "deans-office-vue-js",
   "version": "1.0.0",
   "description": "A Vue.js project for REST API",
-  "author": "aleksgolovnya <Rt564oPt28d>",
+  "author": "Alexander Golovnya",
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.vue src",
