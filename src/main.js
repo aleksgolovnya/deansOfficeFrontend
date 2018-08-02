@@ -12,10 +12,10 @@ import store from './store'
 axios.defaults.baseURL = 'https://university-spa-api.herokuapp.com/api'
 axios.defaults.auth = {username: 'admin', password: 'admin'}
 
-Vue.config.productionTip = false
+// Vue.config.productionTip = false
 
 Vue.use(BootstrapVue)
-Vue.config.productionTip = false
+// Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
