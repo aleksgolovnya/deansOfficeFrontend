@@ -48,6 +48,9 @@
 
         <!-- Расписание -->
         <b-nav-item to="/schedule/">Расписание</b-nav-item>
+
+        <!-- Авторизация -->
+        <b-nav-item to="/login/">Авторизация</b-nav-item>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>

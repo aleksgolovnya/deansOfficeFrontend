@@ -26,11 +26,13 @@ import ScheduleEdit from '@/components/schedule/ScheduleEdit'
 import SubjectIndex from '@/components/subject/SubjectIndex'
 import SubjectShow from '@/components/subject/page/SubjectShow'
 import SubjectEdit from '@/components/subject/SubjectEdit'
+import Login from '@/components/Login'
 
 Vue.use(Router)
 Vue.component('vue-headful', vueHeadful)
 
 export default new Router({
+  // mode: 'history',
   routes: [
     /**
      * Стартовая страница
@@ -40,13 +42,23 @@ export default new Router({
       name: 'HelloWorld',
       component: HelloWorld
     },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/logout',
+      name: 'Logout'
+    },
     /**
      * Факультет
      */
     {
       path: '/faculties',
       name: 'FacultyIndex',
-      component: FacultyIndex
+      component: FacultyIndex,
+      meta: { requiresAuth: true }
     },
     {
       path: '/faculties/:id',

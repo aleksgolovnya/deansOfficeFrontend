@@ -1,16 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import departmentModule from '@/store/department.js'
+import departmentModule from '@/store/department.js'
 import axios from 'axios'
-// import axios from 'axios'
 
 Vue.use(Vuex)
 Vue.config.debug = true
 
 export default new Vuex.Store({
-  // modules: {
-  //   departments: departmentModule
-  // },
+  modules: {
+    departments: departmentModule
+  },
   state: {
     departments: []
   },
