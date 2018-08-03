@@ -23,6 +23,7 @@ module.exports = {
   rules: {
     'global-require': 0,
     'no-param-reasign': 0,
+    'space-unary-ops': 0,
 
     'import/first': 0,
     'import/no-unresolved': 0,

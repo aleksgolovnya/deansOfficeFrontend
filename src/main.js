@@ -10,13 +10,9 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import store from './store'
 
 axios.defaults.baseURL = 'http://localhost:8080/api'
-axios.defaults.auth = {username: 'admin', password: 'admin'}
-
-Vue.config.productionTip = false
+// axios.defaults.auth = {username: 'admin', password: 'admin'}
 
 Vue.use(BootstrapVue)
-Vue.config.productionTip = false
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

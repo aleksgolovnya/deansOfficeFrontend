@@ -103,7 +103,7 @@ export default {
   },
 
   methods: {
-    getStudents () {
+    getStudents: function () {
       axios
         .get(`/students`)
         .then(response => {
@@ -111,6 +111,11 @@ export default {
         })
         .catch(error => {
           console.log(error)
+          if (error.response.status === 401) {
+            alert('К сожалению вы не имеете доступа к этой странице, ' +
+              'пожалуйста авторизируйтесь.')
+            this.$router.replace('/login')
+          }
         })
     }
   },

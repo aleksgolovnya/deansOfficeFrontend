@@ -96,6 +96,11 @@ export default {
           this.subjects = response.data
         })
         .catch(error => {
+          if (error.response.status === 401) {
+            alert('К сожалению вы не имеете доступа к этой странице, ' +
+              'пожалуйста авторизируйтесь.')
+            this.$router.replace('/login')
+          }
           console.log(error)
         })
     }

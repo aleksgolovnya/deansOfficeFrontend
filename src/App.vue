@@ -14,6 +14,7 @@
 <script>
 import NavBar from '@/components/navigation/Navbar.vue'
 import FooterBar from '@/components/navigation/FooterBar.vue'
+import axios from 'axios'
 
 export default {
   name: 'App',
@@ -21,6 +22,21 @@ export default {
   components: {
     NavBar,
     FooterBar
+  },
+
+  methods: {
+    responseError () {
+      axios.interceptors.response.use((response) => {
+        return response
+      }, function (error) {
+        // Do something with response error
+        if (error.response.status === 401) {
+          console.log('unauthorized, logging out ...')
+          this.$router.replace('/login')
+        }
+        return Promise.reject(error.response)
+      })
+    }
   }
 }
 </script>
