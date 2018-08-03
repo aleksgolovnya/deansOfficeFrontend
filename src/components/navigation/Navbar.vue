@@ -49,17 +49,42 @@
         <!-- Расписание -->
         <b-nav-item to="/schedule/">Расписание</b-nav-item>
 
-        <!-- Авторизация -->
-        <b-nav-item to="/login/">Авторизация</b-nav-item>
+      </b-navbar-nav>
+
+      <!-- Правая часть -->
+      <b-navbar-nav class="ml-auto">
+
+        <b-nav-item-dropdown right>
+
+          <template slot="button-content">
+            <em>Авторизация</em>
+          </template>
+
+          <!-- Войти -->
+          <b-nav-item to="/login/" class="item-dropdown-link">Войти</b-nav-item>
+
+          <!-- Выйти -->
+          <b-nav-item @click="logout" class="item-dropdown-link">Выйти</b-nav-item>
+        </b-nav-item-dropdown>
+
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
 </template>
 
 <script>
-// import axios from 'axios'
+import axios from 'axios'
+
 export default {
-  name: 'Navbar'
+  name: 'Navbar',
+
+  methods: {
+    logout () {
+      var basicAuth = 'Basic ' + btoa('' + ':' + '')
+      axios.defaults.headers.common['Authorization'] = basicAuth
+      this.$router.push('/login')
+    }
+  }
 
   // data () {
   //   return {
@@ -103,4 +128,14 @@ export default {
 </script>
 
 <style scoped>
+  .item-dropdown-link {
+    text-align: center;
+    font-size: 15px;
+    cursor: pointer;
+    color: #000;
+  }
+  .item-dropdown-link:hover {
+    text-decoration: underline;
+    color: #737373;
+  }
 </style>

@@ -51,42 +51,11 @@ export default {
     login () {
       var basicAuth = 'Basic ' + btoa(this.uname + ':' + this.pass)
       axios.defaults.headers.common['Authorization'] = basicAuth
-
-      axios
-        .get('/faculties', {
-          auth: {
-            username: this.uname,
-            password: this.pass
-          }
-        })
-        .then(response => {
-          console.log('Authenticated')
-          this.$router.push('/')
-        })
-        .catch(error => {
-          console.log(error)
-          console.log('Error on authentication')
-        })
+      console.log('Authenticated')
+      this.$router.push('/')
     },
     guestAuth () {
-      var basicAuth = 'Basic ' + btoa('guest' + ':' + 'guest')
-      axios.defaults.headers.common['Authorization'] = basicAuth
-
-      axios
-        .get('/faculties', {
-          auth: {
-            username: 'guest',
-            password: 'guest'
-          }
-        })
-        .then(response => {
-          console.log('Authenticated')
-          this.$router.push('/')
-        })
-        .catch(error => {
-          console.log(error)
-          console.log('Error on authentication')
-        })
+      this.$router.push('/')
     }
   }
 }
