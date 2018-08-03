@@ -39,21 +39,21 @@
             </b-form-textarea>
           </b-form-group>
           <!-- Преподаватели -->
-          <b-form-group id="teacherListLabel"
-                        label="Преподаватели:"
-                        label-for="teacherList">
-            <b-form-select id="teacherList"
-                           v-model="subject.teacherId"
-                           required
-                           multiple>
-              <option
-                v-for="teacher in teachers"
-                :key="teacher.id"
-                :value="teacher.id">
-                {{ teacher.firstName + ' ' + teacher.lastName}}
-              </option>
-            </b-form-select>
-          </b-form-group>
+          <!--<b-form-group id="teacherListLabel"-->
+                        <!--label="Преподаватели:"-->
+                        <!--label-for="teacherList">-->
+            <!--<b-form-select id="teacherList"-->
+                           <!--v-model="subject.teacherId"-->
+                           <!--required-->
+                           <!--multiple>-->
+              <!--<option-->
+                <!--v-for="teacher in teachers"-->
+                <!--:key="teacher.id"-->
+                <!--:value="teacher.id">-->
+                <!--{{ teacher.firstName + ' ' + teacher.lastName}}-->
+              <!--</option>-->
+            <!--</b-form-select>-->
+          <!--</b-form-group>-->
 
           <!-- Кнопки: сохранить и удалить -->
           <b-button type="submit" variant="primary">Сохранить</b-button>
@@ -101,16 +101,16 @@ export default {
           })
       }
     },
-    getTeachers () {
-      axios
-        .get('/teachers')
-        .then(response => {
-          this.teachers = response.data
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    },
+    // getTeachers () {
+    //   axios
+    //     .get('/teachers')
+    //     .then(response => {
+    //       this.teachers = response.data
+    //     })
+    //     .catch(error => {
+    //       console.log(error)
+    //     })
+    // },
     deleteSubject () {
       axios
         .delete(`/subjects/${this.subject.id}`)
@@ -138,7 +138,7 @@ export default {
       /* Reset our form values */
       this.subject.name = ''
       this.subject.description = ''
-      this.this.subject.teacherId = ''
+      // this.this.subject.teacherId = ''
       /* Trick to reset/clear native browser form validation state */
       this.show = false
       this.$nextTick(() => { this.show = true })
@@ -150,7 +150,7 @@ export default {
 
   mounted () {
     this.getSubject()
-    this.getTeachers()
+    // this.getTeachers()
   }
 }
 </script>
