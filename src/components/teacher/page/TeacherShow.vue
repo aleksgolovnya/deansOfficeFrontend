@@ -38,10 +38,11 @@
               {{ teacher.position }}
             </p>
 
-            <hr>
-            <h3 class="h3">Предметы</h3>
-            <hr>
-            <teacher-subjects :teacherId="teacher.id"></teacher-subjects>
+            <!-- Необходимы изменения на backend -->
+            <!--<hr>-->
+            <!--<h3 class="h3">Предметы</h3>-->
+            <!--<hr>-->
+            <!--<teacher-subjects :teacherId="teacher.id"></teacher-subjects>-->
 
             <hr>
             <h3 class="h3">Контакты</h3>
