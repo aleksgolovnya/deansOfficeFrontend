@@ -118,7 +118,7 @@ export default {
           description: ''
         }
       },
-      subjects: null,
+      // subjects: null,
       departments: null,
       errored: false,
       show: true
@@ -150,36 +150,35 @@ export default {
         })
     },
     deleteTeacher () {
-      const subjects = this.getTeacherSubjects()
-      if (subjects != null) {
-        alert('Удаление преподавателя невозможно, так как он содержит предметы.' +
-          'Пожалуйста удалите или перенесите предметы от этого преподавателя.')
-      } else {
-        axios
-          .delete(`/teachers/${this.teacher.id}`)
-          .then(response => {
-            console.log(response.data)
-            this.$router.go(-1)
-            alert('Успешно удаленно')
-          })
-          .catch(error => {
-            console.log(error)
-            alert('Возникла ошибка при удалении' + error)
-          })
-      }
+      // const subjects = this.getTeacherSubjects()
+      // if (subjects != null) {
+      //   alert('Удаление преподавателя невозможно, так как он содержит предметы.' +
+      //     'Пожалуйста удалите или перенесите предметы от этого преподавателя.')
+      // } else {
+      axios
+        .delete(`/teachers/${this.teacher.id}`)
+        .then(response => {
+          console.log(response.data)
+          this.$router.go(-1)
+          alert('Успешно удаленно')
+        })
+        .catch(error => {
+          console.log(error)
+          alert('Возникла ошибка при удалении' + error)
+        })
     },
-    getTeacherSubjects () {
-      if (this.teacher.id !== undefined) {
-        axios
-          .get(`/teachers/${this.teacher.id}/subjects`)
-          .then(response => {
-            this.subjects = response.data
-          })
-          .catch(error => {
-            console.log(error)
-          })
-      }
-    },
+    // getTeacherSubjects () {
+    //   if (this.teacher.id !== undefined) {
+    //     axios
+    //       .get(`/teachers/${this.teacher.id}/subjects`)
+    //       .then(response => {
+    //         this.subjects = response.data
+    //       })
+    //       .catch(error => {
+    //         console.log(error)
+    //       })
+    //   }
+    // },
     onSubmit (evt) {
       evt.preventDefault()
       axios.put(
@@ -208,7 +207,7 @@ export default {
   mounted () {
     this.getTeacher()
     this.getDepartments()
-    this.getTeacherSubjects()
+    // this.getTeacherSubjects()
   }
 }
 </script>
