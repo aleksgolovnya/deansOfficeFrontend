@@ -30,21 +30,21 @@
         </b-form-textarea>
       </b-form-group>
       <!-- Преподаватели -->
-      <b-form-group id="teacherListLabel"
-                    label="Преподаватели:"
-                    label-for="teacherList">
-        <b-form-select id="teacherList"
-                       v-model="subject.teacherId"
-                       required
-                       multiple>
-          <option
-            v-for="teacher in teachers"
-            :key="teacher.id"
-            :value="teacher.id">
-            {{ teacher.firstName + ' ' + teacher.lastName}}
-          </option>
-        </b-form-select>
-      </b-form-group>
+      <!--<b-form-group id="teacherListLabel"-->
+                    <!--label="Преподаватели:"-->
+                    <!--label-for="teacherList">-->
+        <!--<b-form-select id="teacherList"-->
+                       <!--v-model="subject.teacherId"-->
+                       <!--required-->
+                       <!--multiple>-->
+          <!--<option-->
+            <!--v-for="teacher in teachers"-->
+            <!--:key="teacher.id"-->
+            <!--:value="teacher.id">-->
+            <!--{{ teacher.firstName + ' ' + teacher.lastName}}-->
+          <!--</option>-->
+        <!--</b-form-select>-->
+      <!--</b-form-group>-->
     </b-form>
     <div slot="modal-footer" class="w-100">
       <b-btn type="submit" size="sm" class="float-right" variant="primary" @click="handleOk">
@@ -64,7 +64,7 @@ export default {
 
   data () {
     return {
-      teachers: null,
+      // teachers: null,
       subjects: null,
       subject: {
         name: '',
@@ -85,16 +85,16 @@ export default {
           console.log(error)
         })
     },
-    getTeachers () {
-      axios
-        .get('/teachers')
-        .then(response => {
-          this.teachers = response.data
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    },
+    // getTeachers () {
+    //   axios
+    //     .get('/teachers')
+    //     .then(response => {
+    //       this.teachers = response.data
+    //     })
+    //     .catch(error => {
+    //       console.log(error)
+    //     })
+    // },
     handleClose () {
       this.$refs.modal.hide()
     },
@@ -104,8 +104,8 @@ export default {
         alert('Пожалуйста введите название предмета.')
       } else if (!this.subject.description) {
         alert('Пожалуйста введите описание предмета.')
-      } else if (!this.subject.teacherId) {
-        alert('Пожалуйста укажите преподавателей для данного предмета.')
+      // } else if (!this.subject.teacherId) {
+      //   alert('Пожалуйста укажите преподавателей для данного предмета.')
       } else {
         this.handleSubmit()
       }
@@ -128,7 +128,7 @@ export default {
 
   mounted () {
     this.getSubjects()
-    this.getTeachers()
+    // this.getTeachers()
   }
 }
 </script>
