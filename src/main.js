@@ -11,8 +11,8 @@ import store from './store'
 
 Vue.use(BootstrapVue)
 
-axios.defaults.baseURL = 'http://localhost:8080/api'
-// axios.defaults.baseURL = 'https://university-spa-backend.herokuapp.com/api'
+// axios.defaults.baseURL = 'http://localhost:8080/api'
+axios.defaults.baseURL = 'https://university-spa-backend.herokuapp.com/api'
 axios.defaults.headers.common['Authorization'] = 'Basic ' + localStorage.authCredentials
 
 /* eslint-disable no-new */
