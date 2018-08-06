@@ -45,8 +45,8 @@
       </b-col>
     </b-row>
 
-    <!-- Модальное окно создания новой записи в журнале -->
-    <journal-modal-create :groupId="studentGroupId"
+     <!--Модальное окно создания новой записи в журнале -->
+    <journal-modal-create :studentGroupId="studentGroupId"
                           :scheduleRecordId="scheduleRecordId"
                           @createJournal="getJournalRecordsForScheduleRecord"
     >
@@ -80,11 +80,15 @@ export default {
         }
       },
       scores: [],
-      students: [],
       currentPage: 1,
       perPage: 5,
       pageOptions: [ 5, 10, 15 ],
-      filter: null
+      filter: null,
+      journal: {
+        mark: '',
+        scheduleId: this.scheduleRecordId,
+        studentId: ''
+      }
     }
   },
 

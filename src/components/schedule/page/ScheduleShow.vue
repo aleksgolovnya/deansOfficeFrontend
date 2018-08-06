@@ -57,7 +57,7 @@ import moment from 'moment'
 import Journal from '@/components/schedule/page/Journal'
 
 export default {
-  name: 'StudentShow',
+  name: 'ScheduleShow',
 
   data () {
     return {
@@ -88,16 +88,39 @@ export default {
   },
 
   methods: {
+    /**
+     * Метод получают одну запись из расписания по id
+     */
     getScheduleRecord () {
       if (this.scheduleRecord.id !== undefined) {
         axios
           .get(`/schedule/${this.scheduleRecord.id}`)
           .then(response => {
             this.scheduleRecord = response.data
+            console.log('Запись расписания', response.data)
           })
           .catch(error => {
             console.log(error)
             this.errored = true
+          })
+      }
+    },
+
+    /**
+     * Пробуем получить студентов группы
+     */
+    getStudentGroupStudents () {
+      console.log('Id группы студентов до проверки и get запроса (ScheduleShow): ' + this.scheduleRecord.studentsGroupId)
+      if (this.scheduleRecord.studentsGroupId !== undefined) {
+        axios
+          .get('/groups/students/' + this.scheduleRecord.studentsGroupId)
+          .then(response => {
+            console.log('Студенты получены', response.data)
+          })
+          .catch(error => {
+            console.log('Ошибка в выполнении запроса getStudentGroupStudents студентов из (ScheduleShow)')
+            console.log('Id группы студентов после get запроса (ScheduleShow): ' + this.scheduleRecord.studentsGroupId)
+            console.log(error)
           })
       }
     },
@@ -111,6 +134,7 @@ export default {
 
   mounted () {
     this.getScheduleRecord()
+    this.getStudentGroupStudents()
   }
 }
 </script>

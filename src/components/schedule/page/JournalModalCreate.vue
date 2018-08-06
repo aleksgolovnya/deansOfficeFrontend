@@ -61,8 +61,9 @@
           Закрыть
         </b-btn>
       </div>
+      <h1>studentGroupId - {{this.studentGroupId}}</h1>
     </b-modal>
-    <br></div>
+    </div>
 </template>
 
 <script>
@@ -71,7 +72,7 @@ import axios from 'axios'
 export default {
   name: 'Journal',
 
-  props: ['scheduleRecordId', 'groupId'],
+  props: ['scheduleRecordId', 'studentGroupId'],
 
   data () {
     return {
@@ -80,34 +81,13 @@ export default {
       journal: {
         mark: '',
         scheduleId: this.scheduleRecordId,
-        studentId: '',
-        schedule: {
-          subject: {
-            name: ''
-          },
-          studentsGroupId: this.groupId,
-          date: ''
-        },
-        student: {
-          firstName: '',
-          lastName: ''
-        }
+        studentId: ''
       }
 
     }
   },
 
   methods: {
-    getScheduleRecord () {
-      axios
-        .get(`/schedule/${this.scheduleRecordId}`)
-        .then(response => {
-          this.journal.schedule = response.data
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    },
     getJournalRecordsForScheduleRecord () {
       if (this.scheduleRecordId !== undefined) {
         axios
@@ -120,21 +100,22 @@ export default {
           })
       }
     },
+    /**
+     * Получение студентов группы
+     */
     getStudentGroupStudents () {
-      if (this.groupId !== undefined) {
+      if (this.studentGroupId !== undefined) {
         axios
-          .get(`/groups/${this.groupId}/students`)
+          .get(`/groups/students/${this.studentGroupId}`)
           .then(response => {
             this.students = response.data
           })
           .catch(error => {
+            console.log('Ошибка в выполнении запроса getStudentGroupStudents')
+            console.log('Id группы студентов: ' + this.studentGroupId)
             console.log(error)
-            alert('Ошибка в запросе')
           })
       }
-    },
-    goBack () {
-      this.$router.go(-1)
     },
     handleClose () {
       this.$refs.modal.hide()
@@ -169,7 +150,6 @@ export default {
 
   mounted () {
     this.getJournalRecordsForScheduleRecord()
-    this.getScheduleRecord()
     this.getStudentGroupStudents()
   }
 }
