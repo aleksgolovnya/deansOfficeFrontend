@@ -9,7 +9,7 @@
                       class="form-group">
           <b-form-input id="authLogin"
                         type="text"
-                        v-model="uname"
+                        v-model="username"
                         required
                         placeholder="Введите логин">
           </b-form-input>
@@ -20,7 +20,7 @@
                       class="form-group">
           <b-form-input id="authPassword"
                         type="password"
-                        v-model="pass"
+                        v-model="password"
                         placeholder="Введите пароль"
                         required>
           </b-form-input>
@@ -30,6 +30,8 @@
         <br>
         <small class="guest-auth" @click="guestAuth">Гостевой режим</small>
       </b-form>
+
+      <div class="alert alert-danger" v-if="error">{{ error }}</div>
     </div>
   </div>
 </template>
@@ -42,21 +44,38 @@ export default {
 
   data () {
     return {
-      uname: '',
-      pass: ''
+      username: '',
+      password: '',
+      error: false
+      // uname: '',
+      // pass: ''
     }
   },
 
   methods: {
     login () {
-      var basicAuth = 'Basic ' + btoa(this.uname + ':' + this.pass)
-      axios.defaults.headers.common['Authorization'] = basicAuth
-      console.log('Authenticated')
+      var authCredentials = btoa(this.username + ':' + this.password)
+      axios.defaults.headers.common['Authorization'] = 'Basic ' + authCredentials
+      localStorage.authCredentials = authCredentials
       this.$router.push('/')
+    },
+    logout () {
+      delete localStorage.authCredentials
     },
     guestAuth () {
       this.$router.push('/')
+      alert('В гостевом режиме доступна только главная страница')
     }
+
+    //  TODO: getting token from server
+    //   axios
+    //     .post('http://localhost:8080/login', {authCredentials})
+    //     .then(request => {
+    //       this.loginSuccessful(request)
+    //       axios.defaults.headers.common['Authorization'] = 'Basic ' + authCredentials
+    //     })
+    //     .catch(() => this.loginFailed())
+    // },
   }
 }
 </script>

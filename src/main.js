@@ -9,19 +9,11 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import store from './store'
 
-/**
- * Base url for production
- */
-// axios.defaults.baseURL = 'https://university-spa-backend.herokuapp.com/api'
-
-/**
- * Base url for localhost
- */
-axios.defaults.baseURL = 'http://localhost:8080/api'
-
-axios.defaults.auth = {username: 'admin', password: 'admin'}
-
 Vue.use(BootstrapVue)
+
+axios.defaults.baseURL = 'http://localhost:8080/api'
+// axios.defaults.baseURL = 'https://university-spa-backend.herokuapp.com/api'
+axios.defaults.headers.common['Authorization'] = 'Basic ' + localStorage.authCredentials
 
 /* eslint-disable no-new */
 new Vue({
