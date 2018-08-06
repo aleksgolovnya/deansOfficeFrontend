@@ -12,14 +12,14 @@ import store from './store'
 /**
  * Base url for production
  */
-axios.defaults.baseURL = 'https://university-spa-backend.herokuapp.com/api'
+// axios.defaults.baseURL = 'https://university-spa-backend.herokuapp.com/api'
 
 /**
  * Base url for localhost
  */
-// axios.defaults.baseURL = 'http://localhost:8080/api'
+axios.defaults.baseURL = 'http://localhost:8080/api'
 
-// axios.defaults.auth = {username: 'admin', password: 'admin'}
+axios.defaults.auth = {username: 'admin', password: 'admin'}
 
 Vue.use(BootstrapVue)
 
