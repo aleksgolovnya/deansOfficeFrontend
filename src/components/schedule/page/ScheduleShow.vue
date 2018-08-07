@@ -94,7 +94,6 @@ export default {
           .get(`/schedule/${this.scheduleRecord.id}`)
           .then(response => {
             this.scheduleRecord = response.data
-            console.log('Запись расписания', response.data)
           })
           .catch(error => {
             console.log(error)

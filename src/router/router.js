@@ -22,11 +22,11 @@ import TeacherShow from '@/components/teacher/page/TeacherShow'
 import TeacherEdit from '@/components/teacher/TeacherEdit'
 import ScheduleIndex from '@/components/schedule/ScheduleIndex'
 import ScheduleShow from '@/components/schedule/page/ScheduleShow'
-import ScheduleEdit from '@/components/schedule/ScheduleEdit'
 import SubjectIndex from '@/components/subject/SubjectIndex'
 import SubjectShow from '@/components/subject/page/SubjectShow'
 import SubjectEdit from '@/components/subject/SubjectEdit'
 import Login from '@/components/Login'
+import StudentIndexExp from '@/components/experimental/StudentIndexExp.vue'
 
 Vue.use(Router)
 Vue.component('vue-headful', vueHeadful)
@@ -34,6 +34,15 @@ Vue.component('vue-headful', vueHeadful)
 export default new Router({
   // mode: 'history',
   routes: [
+    /**
+     * Эксперементальное
+     */
+    {
+      path: '/exp',
+      name: 'StudentIndexExp',
+      component: StudentIndexExp
+    },
+
     /**
      * Стартовая страница
      */
@@ -185,11 +194,6 @@ export default new Router({
       name: 'ScheduleShow',
       component: ScheduleShow,
       props: true
-    },
-    {
-      path: '/schedule/edit/:id',
-      name: 'ScheduleEdit',
-      component: ScheduleEdit
     },
 
     /**
