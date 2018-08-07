@@ -63,9 +63,6 @@ export default {
     return {
       scheduleRecord: {
         id: this.$route.params.id,
-        subjectId: '',
-        teacherId: '',
-        studentsGroupId: '',
         date: '',
         classNumber: '',
         studentsGroup: {
@@ -105,25 +102,6 @@ export default {
           })
       }
     },
-
-    /**
-     * Пробуем получить студентов группы
-     */
-    getStudentGroupStudents () {
-      console.log('Id группы студентов до проверки и get запроса (ScheduleShow): ' + this.scheduleRecord.studentsGroupId)
-      if (this.scheduleRecord.studentsGroupId !== undefined) {
-        axios
-          .get('/groups/students/' + this.scheduleRecord.studentsGroupId)
-          .then(response => {
-            console.log('Студенты получены', response.data)
-          })
-          .catch(error => {
-            console.log('Ошибка в выполнении запроса getStudentGroupStudents студентов из (ScheduleShow)')
-            console.log('Id группы студентов после get запроса (ScheduleShow): ' + this.scheduleRecord.studentsGroupId)
-            console.log(error)
-          })
-      }
-    },
     goBack () {
       this.$router.go(-1)
     },
@@ -132,9 +110,8 @@ export default {
     }
   },
 
-  mounted () {
+  created () {
     this.getScheduleRecord()
-    this.getStudentGroupStudents()
   }
 }
 </script>

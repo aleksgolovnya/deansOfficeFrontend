@@ -24,6 +24,10 @@ module.exports = {
     'global-require': 0,
     'no-param-reasign': 0,
     'space-unary-ops': 0,
+    'indent': 0,
+    'quotes': 0,
+    'no-trailing-spaces': 0,
+    'vue/valid-template-root': 0,
 
     'import/first': 0,
     'import/no-unresolved': 0,
