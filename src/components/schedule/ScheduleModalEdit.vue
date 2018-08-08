@@ -1,6 +1,6 @@
 <template>
   <!-- Modal window for editing schedule record -->
-  <b-modal id="editScheduleModal" ref="modal" title="Редактирование записи в расписании" size="lg" centered>
+  <b-modal id="editScheduleModal" ref="modal" title="Редактирование записи расписания" size="lg" centered>
 
     <!-- Subject for schedule record -->
     <b-row class="modal-row">
@@ -70,9 +70,7 @@
     <!-- Modal footer: buttons of saving and closing -->
     <div slot="modal-footer" class="w-100">
       <!-- Save button -->
-      <b-btn type="submit" size="md" class="modal-button" @click="editScheduleRecord">Сохранить</b-btn>
-      <!-- Close button -->
-      <!--<b-btn type="reset" size="sm" class="modal-button" variant="danger" @click="closeModalWindow">Закрыть</b-btn>-->
+      <b-btn type="submit" size="md" class="modal-button" @click="editScheduleRecord" variant="outline-secondary">Сохранить</b-btn>
     </div>
 
   </b-modal>
@@ -138,13 +136,6 @@
           .catch(error => {
             console.log(error)
           })
-      },
-
-      /**
-       * Method close modal window, click event for button 'Закрыть'
-       */
-      closeModalWindow () {
-        this.$refs.modal.hide()
       },
 
       /**
