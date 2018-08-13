@@ -4,10 +4,10 @@
     <b-modal id="createJournalModal"
              ref="modal"
              title="Создание новой записи в журнале"
-             @ok="handleOk"
+             @ok="createJournalRecord"
              size="lg"
              centered>
-      <b-form @submit.stop.prevent="handleSubmit">
+      <b-form @submit.stop.prevent="createJournalRecord">
         <!-- Предмет -->
         <b-form-group id="scheduleRecordLabel"
                       label="Предмет:"
@@ -54,14 +54,13 @@
 
       <!-- Кнопки: сохранить и отменить -->
       <div slot="modal-footer" class="w-100">
-        <b-btn type="submit" size="sm" class="float-right" variant="primary" @click="handleOk">
+        <b-btn type="submit" size="sm" class="float-right" variant="primary" @click="createJournalRecord">
           Сохранить
         </b-btn>
-        <b-btn type="reset" size="sm" class="float-right" variant="danger" @click="handleClose">
+        <b-btn type="reset" size="sm" class="float-right" variant="danger" @click="closeModalWindow">
           Закрыть
         </b-btn>
       </div>
-      <h1>studentGroupId - {{this.studentGroupId}}</h1>
     </b-modal>
     </div>
 </template>
@@ -82,7 +81,8 @@ export default {
         mark: '',
         scheduleId: this.scheduleRecordId,
         studentId: ''
-      }
+      },
+      error: ''
 
     }
   },
@@ -101,27 +101,57 @@ export default {
       }
     },
     /**
-     * Получение студентов группы
+     * Receiving students from the student group
+     * At first request method receives schedule record by id,
+     * to get the id of the student group that we use in second request
+     * to receives all students from the student group
+     *
+     * @param scheduleRecordId id of the one record in the schedule
+     * @param studentsGroupId id of the student group
+     * @param students list of all students that belongs to the student group
      */
     getStudentGroupStudents () {
-      if (this.studentGroupId !== undefined) {
+      if (this.scheduleRecordId !== undefined) {
         axios
-          .get(`/groups/students/${this.studentGroupId}`)
+          .get('/schedule/' + this.scheduleRecordId)
           .then(response => {
-            this.students = response.data
+            return axios
+              .get('/groups/students/' + response.data.studentsGroupId)
+              .then(response => {
+                this.students = response.data
+              })
+              .catch(error => {
+                console.log('Ошибка при выполнении функции getStudentGroupStudents', error)
+                this.error = true
+              })
           })
           .catch(error => {
-            console.log('Ошибка в выполнении запроса getStudentGroupStudents')
-            console.log('Id группы студентов: ' + this.studentGroupId)
-            console.log(error)
+            console.log('Ошибка при выполнении функции getStudentGroupStudents', error)
+            this.error = true
           })
+      } else {
+        console.log('Error: schedule record id is undefined')
+        this.error = true
       }
     },
-    handleClose () {
+
+    closeModalWindow () {
       this.$refs.modal.hide()
     },
-    handleOk (evt) {
-      evt.preventDefault()
+    // handleOk (evt) {
+    //   evt.preventDefault()
+    //   if (!this.journal.scheduleId) {
+    //     alert('Пожалуйста укажите запись рассписания.')
+    //   } else if (!this.journal.studentId) {
+    //     alert('Пожалуйста укажите студента.')
+    //   } else if (!this.journal.mark) {
+    //     alert('Пожалуйста укажите отметку.')
+    //   } else {
+    //     this.handleSubmit()
+    //   }
+    // },
+    createJournalRecord (event) {
+      event.preventDefault()
       if (!this.journal.scheduleId) {
         alert('Пожалуйста укажите запись рассписания.')
       } else if (!this.journal.studentId) {
@@ -129,26 +159,21 @@ export default {
       } else if (!this.journal.mark) {
         alert('Пожалуйста укажите отметку.')
       } else {
-        this.handleSubmit()
+        axios
+          .post('/journal', this.journal)
+          .catch(error => {
+            console.log('Error while creating record of journal', error)
+            alert('Ошибка при создании записи журнала.')
+          })
+          .then(success => {
+            this.$emit('createJournal')
+            this.$refs.modal.hide()
+          })
       }
-    },
-    handleSubmit () {
-      axios.post(
-        '/journal',
-        this.journal
-      )
-        .catch(error => {
-          console.log(error)
-          alert('Ошибка при создании записи журнала.')
-        })
-        .then(success => {
-          this.$emit('createJournal')
-          this.$refs.modal.hide()
-        })
     }
   },
 
-  mounted () {
+  created () {
     this.getJournalRecordsForScheduleRecord()
     this.getStudentGroupStudents()
   }
