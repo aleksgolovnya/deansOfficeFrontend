@@ -68,7 +68,7 @@
          */
         getStudents () {
           axios
-            .get('/students')
+            .get('/students' + '?token=' + this.getCookie("Auth-Token"))
             .then(response => {
               this.students = response.data
             })
@@ -76,6 +76,13 @@
               console.log('Ошибка при выполнении функции getStudents: ', error)
               this.error = true
             })
+        },
+        getCookie () {
+          let name = "Auth-Token"
+          let matches = document.cookie.match(new RegExp(
+            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+          ))
+          return matches ? decodeURIComponent(matches[1]) : undefined
         }
       },
 

@@ -90,7 +90,7 @@ export default {
     getStudentGroup () {
       if (this.studentGroup.id !== undefined) {
         axios
-          .get(`/groups/${this.studentGroup.id}`)
+          .get('/groups/' + this.studentGroup.id + '?token=' + this.getCookie("Auth-Token"))
           .then(response => {
             this.studentGroup = response.data
           })
@@ -102,7 +102,7 @@ export default {
     },
     getSpecialties () {
       axios
-        .get('/specialties')
+        .get('/specialties' + '?token=' + this.getCookie("Auth-Token"))
         .then(response => {
           this.specialties = response.data
         })
@@ -112,7 +112,7 @@ export default {
     },
     getStudentGroupStudents () {
       axios
-        .get(`/groups/${this.studentGroup.id}/students`)
+        .get('/groups/' + this.studentGroup.id + '/students' + '?token=' + this.getCookie("Auth-Token"))
         .then(response => {
           this.students = response.data
         })
@@ -127,7 +127,7 @@ export default {
           'Пожалуйста удалите или перенесите студентов из этой учебной группы.')
       } else {
         axios
-          .delete(`/groups/${this.studentGroup.id}`)
+          .delete('/groups/' + this.studentGroup.id + '?token=' + this.getCookie("Auth-Token"))
           .then(response => {
             console.log(response.data)
             this.$router.push(`/specialties/${this.studentGroup.specialtyId}`)
@@ -142,7 +142,7 @@ export default {
     onSubmit (evt) {
       evt.preventDefault()
       axios.put(
-        `/groups/${this.studentGroup.id}`,
+        '/groups/' + this.studentGroup.id + '?token=' + this.getCookie("Auth-Token"),
         this.studentGroup
       )
         .then(resp => alert('Успешно сохраненно'))
@@ -156,6 +156,13 @@ export default {
       /* Trick to reset/clear native browser form validation state */
       this.show = false
       this.$nextTick(() => { this.show = true })
+    },
+    getCookie () {
+      let name = "Auth-Token"
+      let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ))
+      return matches ? decodeURIComponent(matches[1]) : undefined
     }
   },
 

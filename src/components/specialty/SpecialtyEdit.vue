@@ -92,7 +92,7 @@ export default {
     getSpecialty () {
       if (this.specialty.id !== undefined) {
         axios
-          .get(`/specialties/${this.specialty.id}`)
+          .get('/specialties/' + this.specialty.id + '?token=' + this.getCookie("Auth-Token"))
           .then(response => {
             this.specialty = response.data
           })
@@ -104,7 +104,7 @@ export default {
     },
     getDepartments () {
       axios
-        .get('/departments')
+        .get('/departments' + '?token=' + this.getCookie("Auth-Token"))
         .then(response => {
           this.departments = response.data
         })
@@ -119,7 +119,7 @@ export default {
           'Пожалуйста удалите или перенесите группы студентов с этой специальности.')
       } else {
         axios
-          .delete(`/specialties/${this.specialty.id}`)
+          .delete('/specialties/' + this.specialty.id + '?token=' + this.getCookie("Auth-Token"))
           .then(response => {
             console.log(response.data)
             this.$router.push(`/departments/${this.specialty.departmentId}`)
@@ -134,7 +134,7 @@ export default {
     getSpecialtyStudentGroups () {
       if (this.specialty.id !== undefined) {
         axios
-          .get(`/specialties/${this.specialty.id}/student-groups`)
+          .get('/specialties/' + this.specialty.id + '/student-groups' + '?token=' + this.getCookie("Auth-Token"))
           .then(response => {
             this.studentGroups = response.data
           })
@@ -146,7 +146,7 @@ export default {
     onSubmit (evt) {
       evt.preventDefault()
       axios.put(
-        `/specialties/${this.specialty.id}`,
+        '/specialties/' + this.specialty.id + '?token=' + this.getCookie("Auth-Token"),
         this.specialty
       )
         .then(resp => alert('Успешно сохраненно'))
@@ -161,6 +161,13 @@ export default {
       /* Trick to reset/clear native browser form validation state */
       this.show = false
       this.$nextTick(() => { this.show = true })
+    },
+    getCookie () {
+      let name = "Auth-Token"
+      let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ))
+      return matches ? decodeURIComponent(matches[1]) : undefined
     }
   },
 

@@ -91,7 +91,7 @@ export default {
     getScheduleRecord () {
       if (this.scheduleRecord.id !== undefined) {
         axios
-          .get(`/schedule/${this.scheduleRecord.id}`)
+          .get('/schedule/' + this.scheduleRecord.id + '?token=' + this.getCookie("Auth-Token"))
           .then(response => {
             this.scheduleRecord = response.data
           })
@@ -106,6 +106,13 @@ export default {
     },
     formatDate (date) {
       return moment(String(date)).format('DD.MM.YYYY')
+    },
+    getCookie () {
+      let name = "Auth-Token"
+      let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ))
+      return matches ? decodeURIComponent(matches[1]) : undefined
     }
   },
 

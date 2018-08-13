@@ -59,7 +59,7 @@ export default {
   methods: {
     getDepartments () {
       axios
-        .get('/departments')
+        .get('/departments' + '?token=' + this.getCookie("Auth-Token"))
         .then(response => {
           this.departments = response.data
         })
@@ -71,6 +71,13 @@ export default {
             this.$router.replace('/login')
           }
         })
+    },
+    getCookie () {
+      let name = "Auth-Token"
+      let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ))
+      return matches ? decodeURIComponent(matches[1]) : undefined
     }
   },
 

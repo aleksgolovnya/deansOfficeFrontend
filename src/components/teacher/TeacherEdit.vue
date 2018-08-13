@@ -129,7 +129,7 @@ export default {
     getTeacher () {
       if (this.teacher.id !== undefined) {
         axios
-          .get(`/teachers/${this.teacher.id}`)
+          .get('/teachers/' + this.teacher.id + '?token=' + this.getCookie("Auth-Token"))
           .then(response => {
             this.teacher = response.data
           })
@@ -141,7 +141,7 @@ export default {
     },
     getDepartments () {
       axios
-        .get('/departments')
+        .get('/departments' + '?token=' + this.getCookie("Auth-Token"))
         .then(response => {
           this.departments = response.data
         })
@@ -156,7 +156,7 @@ export default {
       //     'Пожалуйста удалите или перенесите предметы от этого преподавателя.')
       // } else {
       axios
-        .delete(`/teachers/${this.teacher.id}`)
+        .delete('/teachers/' + this.teacher.id + '?token=' + this.getCookie("Auth-Token"))
         .then(response => {
           console.log(response.data)
           this.$router.go(-1)
@@ -201,6 +201,13 @@ export default {
     },
     goBack () {
       this.$router.go(-1)
+    },
+    getCookie () {
+      let name = "Auth-Token"
+      let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ))
+      return matches ? decodeURIComponent(matches[1]) : undefined
     }
   },
 

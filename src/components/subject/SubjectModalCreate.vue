@@ -77,7 +77,7 @@ export default {
   methods: {
     getSubjects () {
       axios
-        .get('/subjects')
+        .get('/subjects' + '?token=' + this.getCookie("Auth-Token"))
         .then(response => {
           this.subjects = response.data
         })
@@ -112,7 +112,7 @@ export default {
     },
     handleSubmit () {
       axios.post(
-        `/subjects`,
+        '/subjects' + '?token=' + this.getCookie("Auth-Token"),
         this.subject
       )
         .catch(error => {
@@ -123,6 +123,13 @@ export default {
           this.$emit('createSubject')
           this.$refs.modal.hide()
         })
+    },
+    getCookie () {
+      let name = "Auth-Token"
+      let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ))
+      return matches ? decodeURIComponent(matches[1]) : undefined
     }
   },
 

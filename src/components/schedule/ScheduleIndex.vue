@@ -169,7 +169,7 @@
        */
       getScheduleRecords () {
         axios
-          .get(`/schedule`)
+          .get('/schedule' + '?token=' + this.getCookie("Auth-Token"))
           .then(response => {
             this.scheduleRecords = response.data
           })
@@ -190,7 +190,7 @@
       deleteScheduleRecord (id) {
         if (confirm('Вы уверены что хотите удалить занятие в расписании?' + id)) {
           axios
-            .delete('/schedule/' + id)
+            .delete('/schedule/' + id + '?token=' + this.getCookie("Auth-Token"))
             .then(response => {
               this.getScheduleRecords()
             })
@@ -199,6 +199,13 @@
               alert('Возникла ошибка при удалении')
             })
         }
+      },
+      getCookie () {
+        let name = "Auth-Token"
+        let matches = document.cookie.match(new RegExp(
+          "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+        ))
+        return matches ? decodeURIComponent(matches[1]) : undefined
       }
     },
 

@@ -72,7 +72,7 @@ export default {
     getFaculty () {
       if (this.faculty.id !== undefined) {
         axios
-          .get(`/faculties/${this.faculty.id}`)
+          .get('/faculties/' + this.faculty.id + '?token=' + this.getCookie("Auth-Token"))
           .then(response => {
             this.faculty = response.data
           })
@@ -89,7 +89,7 @@ export default {
           'Пожалуйста удалите или перенесите кафедры с этого факультета.')
       } else {
         axios
-          .delete(`/faculties/${this.faculty.id}`)
+          .delete('/faculties/' + this.faculty.id + '?token=' + this.getCookie("Auth-Token"))
           .then(response => {
             console.log(response.data)
             this.$router.push('/faculties')
@@ -104,7 +104,7 @@ export default {
     getFacultyDepartments () {
       if (this.faculty.id !== undefined) {
         axios
-          .get(`/faculties/${this.faculty.id}/departments`)
+          .get('/faculties/' + this.faculty.id + 'departments' + '?token=' + this.getCookie("Auth-Token"))
           .then(response => {
             this.departments = response.data
           })
@@ -131,6 +131,13 @@ export default {
       /* Trick to reset/clear native browser form validation state */
       this.show = false
       this.$nextTick(() => { this.show = true })
+    },
+    getCookie () {
+      let name = "Auth-Token"
+      let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ))
+      return matches ? decodeURIComponent(matches[1]) : undefined
     }
   },
 

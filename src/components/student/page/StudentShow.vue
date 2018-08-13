@@ -92,7 +92,7 @@ export default {
     getStudent () {
       if (this.student.id !== undefined) {
         axios
-          .get(`/students/${this.student.id}`)
+          .get('/students/' + this.student.id + '?token=' + this.getCookie("Auth-Token"))
           .then(response => {
             this.student = response.data
           })
@@ -101,6 +101,13 @@ export default {
             this.errored = true
           })
       }
+    },
+    getCookie () {
+      let name = "Auth-Token"
+      let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ))
+      return matches ? decodeURIComponent(matches[1]) : undefined
     }
   },
 

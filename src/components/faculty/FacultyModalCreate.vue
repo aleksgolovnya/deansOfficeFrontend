@@ -81,7 +81,7 @@ export default {
     },
     handleSubmit () {
       axios.post(
-        `/faculties`,
+        '/faculties' + '?token=' + this.getCookie("Auth-Token"),
         this.faculty
       )
         .catch(error => {
@@ -92,6 +92,13 @@ export default {
           this.$emit('createFaculty')
           this.$refs.modal.hide()
         })
+    },
+    getCookie () {
+      let name = "Auth-Token"
+      let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ))
+      return matches ? decodeURIComponent(matches[1]) : undefined
     }
   },
 

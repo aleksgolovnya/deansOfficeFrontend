@@ -97,7 +97,7 @@ export default {
     getSpecialty () {
       if (this.specialty.id !== undefined) {
         axios
-          .get(`/specialties/${this.specialty.id}`)
+          .get('/specialties/' + this.specialty.id + '?token=' + this.getCookie("Auth-Token"))
           .then(response => {
             this.specialty = response.data
           })
@@ -106,6 +106,13 @@ export default {
             this.errored = true
           })
       }
+    },
+    getCookie () {
+      let name = "Auth-Token"
+      let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ))
+      return matches ? decodeURIComponent(matches[1]) : undefined
     }
   },
 

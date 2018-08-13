@@ -91,7 +91,7 @@ export default {
     getSubject () {
       if (this.subject.id !== undefined) {
         axios
-          .get(`/subjects/${this.subject.id}`)
+          .get('/subjects/' + this.subject.id + '?token=' + this.getCookie("Auth-Token"))
           .then(response => {
             this.subject = response.data
           })
@@ -113,7 +113,7 @@ export default {
     // },
     deleteSubject () {
       axios
-        .delete(`/subjects/${this.subject.id}`)
+        .delete('/subjects/' + this.subject.id + '?token=' + this.getCookie("Auth-Token"))
         .then(response => {
           console.log(response.data)
           this.$router.go(-1)
@@ -127,7 +127,7 @@ export default {
     onSubmit (evt) {
       evt.preventDefault()
       axios.put(
-        `/subjects/${this.subject.id}`,
+        '/subjects/' + this.subject.id + '?token=' + this.getCookie("Auth-Token"),
         this.subject
       )
         .then(resp => alert('Успешно сохраненно'))
@@ -145,6 +145,13 @@ export default {
     },
     goBack () {
       this.$router.go(-1)
+    },
+    getCookie () {
+      let name = "Auth-Token"
+      let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ))
+      return matches ? decodeURIComponent(matches[1]) : undefined
     }
   },
 

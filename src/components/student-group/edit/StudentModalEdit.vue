@@ -94,7 +94,7 @@ export default {
     getStudent () {
       if (this.studentId !== undefined) {
         axios
-          .get(`/students/${this.studentId}`)
+          .get('/students/' + this.studentId + '?token=' + this.getCookie("Auth-Token"))
           .then(response => {
             this.student = response.data
           })
@@ -106,7 +106,7 @@ export default {
     },
     getStudentGroups () {
       axios
-        .get('/groups')
+        .get('/groups' + '?token=' + this.getCookie("Auth-Token"))
         .then(response => {
           this.studentGroups = response.data
         })
@@ -119,7 +119,7 @@ export default {
       if (confirm('Вы уверены, что хотите удалить студента?')) {
         if (studentId !== undefined) {
           axios
-            .delete(`/students/${this.studentId}`)
+            .delete('/students/' + this.studentId + '?token=' + this.getCookie("Auth-Token"))
             .then(response => {
               console.log(response.data)
               alert('Успешно удаленно')
@@ -152,7 +152,7 @@ export default {
     },
     handleSubmit () {
       axios.post(
-        `/students`,
+        '/students' + '?token=' + this.getCookie("Auth-Token"),
         this.student
       )
         .catch(error => {
@@ -163,6 +163,13 @@ export default {
           this.$emit('editStudent')
           this.$refs.modal.hide()
         })
+    },
+    getCookie () {
+      let name = "Auth-Token"
+      let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ))
+      return matches ? decodeURIComponent(matches[1]) : undefined
     }
   },
 

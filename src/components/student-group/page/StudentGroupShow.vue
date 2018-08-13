@@ -126,7 +126,7 @@ export default {
     getStudentGroups () {
       if (this.studentGroup.id !== undefined) {
         axios
-          .get(`/groups/${this.studentGroup.id}`)
+          .get('/groups/' + this.studentGroup.id + '?token=' + this.getCookie("Auth-Token"))
           .then(response => {
             this.studentGroup = response.data
           })
@@ -144,6 +144,13 @@ export default {
     },
     goToFacultyPage () {
       this.$router.replace(`/faculties/${this.studentGroup.specialty.department.facultyId}`)
+    },
+    getCookie () {
+      let name = "Auth-Token"
+      let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ))
+      return matches ? decodeURIComponent(matches[1]) : undefined
     }
   },
 

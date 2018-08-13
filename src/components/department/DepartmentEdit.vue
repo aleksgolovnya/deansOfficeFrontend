@@ -92,7 +92,7 @@ export default {
     getDepartment () {
       if (this.department.id !== undefined) {
         axios
-          .get(`/departments/${this.department.id}`)
+          .get('/departments/' + this.department.id + '?token=' + this.getCookie("Auth-Token"))
           .then(response => {
             this.department = response.data
           })
@@ -104,7 +104,7 @@ export default {
     },
     getFaculties () {
       axios
-        .get('/faculties')
+        .get('/faculties' + '?token=' + this.getCookie("Auth-Token"))
         .then(response => {
           this.faculties = response.data
         })
@@ -119,7 +119,7 @@ export default {
           'Пожалуйста удалите или перенесите специальности с этой кафедры.')
       } else {
         axios
-          .delete(`/departments/${this.department.id}`)
+          .delete('/departments/' + this.department.id + '?token=' + this.getCookie("Auth-Token"))
           .then(response => {
             console.log(response.data)
             this.$router.push(`/faculties/${this.department.facultyId}`)
@@ -134,7 +134,7 @@ export default {
     getDepartmentSpecialties () {
       if (this.department.id !== undefined) {
         axios
-          .get(`/departments/${this.department.id}/specialties`)
+          .get('/departments/' + this.department.id + '/specialties' + '?token=' + this.getCookie("Auth-Token"))
           .then(response => {
             this.specialties = response.data
           })
@@ -161,6 +161,13 @@ export default {
       /* Trick to reset/clear native browser form validation state */
       this.show = false
       this.$nextTick(() => { this.show = true })
+    },
+    getCookie () {
+      let name = "Auth-Token"
+      let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ))
+      return matches ? decodeURIComponent(matches[1]) : undefined
     }
   },
 

@@ -80,7 +80,7 @@ export default {
   methods: {
     getSpecialties () {
       axios
-        .get('/specialties')
+        .get('/specialties' + '?token=' + this.getCookie("Auth-Token"))
         .then(response => {
           this.specialties = response.data
         })
@@ -91,7 +91,7 @@ export default {
     },
     getDepartments () {
       axios
-        .get('/departments')
+        .get('/departments' + '?token=' + this.getCookie("Auth-Token"))
         .then(response => {
           this.departments = response.data
         })
@@ -116,7 +116,7 @@ export default {
     },
     handleSubmit () {
       axios.post(
-        `/specialties`,
+        '/specialties' + '?token=' + this.getCookie("Auth-Token"),
         this.specialty
       )
         .catch(error => {
@@ -127,6 +127,13 @@ export default {
           this.$emit('createSpecialty')
           this.$refs.modal.hide()
         })
+    },
+    getCookie () {
+      let name = "Auth-Token"
+      let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ))
+      return matches ? decodeURIComponent(matches[1]) : undefined
     }
   },
 

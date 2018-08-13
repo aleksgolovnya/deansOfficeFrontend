@@ -55,19 +55,26 @@ export default {
   methods: {
     getFaculties () {
       axios
-        .get('/faculties')
+        .get('/faculties' + '?token=' + this.getCookie("Auth-Token"))
         .then(response => {
           this.faculties = response.data
         })
         .catch(error => {
           console.log(error)
-          if (error.response.status === 401) {
+          if (error.response.status === 401 || error.response.status === 403) {
             alert('К сожалению вы не имеете доступа к этой странице, ' +
               'пожалуйста авторизируйтесь.')
             this.$router.replace('/login')
           }
           this.errored = true
         })
+    },
+    getCookie () {
+      let name = "Auth-Token"
+      let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ))
+      return matches ? decodeURIComponent(matches[1]) : undefined
     }
   },
 

@@ -99,7 +99,7 @@
        */
       getSubjects () {
         axios
-          .get('/subjects')
+          .get('/subjects' + '?token=' + this.getCookie("Auth-Token"))
           .then(response => {
             this.subjects = response.data
           })
@@ -114,7 +114,7 @@
        */
       getTeachers () {
         axios
-          .get('/teachers')
+          .get('/teachers' + '?token=' + this.getCookie("Auth-Token"))
           .then(response => {
             this.teachers = response.data
           })
@@ -129,7 +129,7 @@
        */
       getStudentGroups () {
         axios
-          .get('/groups')
+          .get('/groups' + '?token=' + this.getCookie("Auth-Token"))
           .then(response => {
             this.studentGroups = response.data
           })
@@ -157,7 +157,7 @@
         } else if (!this.scheduleRecord.classNumber) {
           alert('Пожалуйста укажите номер занятия.')
         } else {
-          axios.put(`/schedule/${this.scheduleRecord.id}`, this.scheduleRecord)
+          axios.put('/schedule/' + this.scheduleRecord.id + '?token=' + this.getCookie("Auth-Token"), this.scheduleRecord)
             .catch(error => {
               console.log(error)
               alert('Ошибка при создании записи расписания.')
@@ -167,6 +167,13 @@
               this.$refs.modal.hide()
             })
         }
+      },
+      getCookie () {
+        let name = "Auth-Token"
+        let matches = document.cookie.match(new RegExp(
+          "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+        ))
+        return matches ? decodeURIComponent(matches[1]) : undefined
       }
     },
 

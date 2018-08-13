@@ -102,7 +102,7 @@ export default {
     getStudentGroupStudents () {
       if (this.studentGroupId !== undefined) {
         axios
-          .get(`/groups/${this.studentGroupId}/students`)
+          .get('/groups/' + this.studentGroupId + '/students' + '?token=' + this.getCookie("Auth-Token"))
           .then(response => {
             this.students = response.data
           })
@@ -110,6 +110,13 @@ export default {
             console.log(error)
           })
       }
+    },
+    getCookie () {
+      let name = "Auth-Token"
+      let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ))
+      return matches ? decodeURIComponent(matches[1]) : undefined
     }
     // getId (value) {
     //   this.studentId = value

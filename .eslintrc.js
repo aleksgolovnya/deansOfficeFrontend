@@ -28,6 +28,7 @@ module.exports = {
     'quotes': 0,
     'no-trailing-spaces': 0,
     'vue/valid-template-root': 0,
+    'no-useless-escape': 0,
 
     'import/first': 0,
     'import/no-unresolved': 0,

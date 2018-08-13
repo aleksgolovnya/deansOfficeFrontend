@@ -114,7 +114,7 @@ export default {
     },
     handleSubmit () {
       axios.post(
-        `/departments`,
+        '/departments' + '?token=' + this.getCookie("Auth-Token"),
         this.department
       )
         .catch(error => {
@@ -125,6 +125,13 @@ export default {
           this.$emit('createDepartment')
           this.$refs.modal.hide()
         })
+    },
+    getCookie () {
+      let name = "Auth-Token"
+      let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ))
+      return matches ? decodeURIComponent(matches[1]) : undefined
     }
   },
 

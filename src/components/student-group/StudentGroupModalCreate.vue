@@ -65,7 +65,7 @@ export default {
   methods: {
     getSpecialties () {
       axios
-        .get('/specialties')
+        .get('/specialties' + '?token=' + this.getCookie("Auth-Token"))
         .then(response => {
           this.specialties = response.data
         })
@@ -75,7 +75,7 @@ export default {
     },
     getStudents () {
       axios
-        .get('/students')
+        .get('/students' + '?token=' + this.getCookie("Auth-Token"))
         .then(response => {
           this.students = response.data
         })
@@ -85,7 +85,7 @@ export default {
     },
     getStudentGroups () {
       axios
-        .get(`/groups`)
+        .get('/groups' + '?token=' + this.getCookie("Auth-Token"))
         .then(response => {
           this.studentGroups = response.data
         })
@@ -108,7 +108,7 @@ export default {
     },
     handleSubmit () {
       axios.post(
-        '/groups',
+        '/groups' + '?token=' + this.getCookie("Auth-Token"),
         this.studentGroup
       )
         .catch(error => {
@@ -119,6 +119,13 @@ export default {
           this.$emit('createStudentGroup')
           this.$refs.modal.hide()
         })
+    },
+    getCookie () {
+      let name = "Auth-Token"
+      let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ))
+      return matches ? decodeURIComponent(matches[1]) : undefined
     }
   },
 

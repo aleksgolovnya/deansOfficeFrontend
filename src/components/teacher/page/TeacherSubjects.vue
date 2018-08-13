@@ -32,7 +32,7 @@ export default {
     getTeacherSubjects () {
       if (this.teacherId !== undefined) {
         axios
-          .get(`/teachers/${this.teacherId}/subjects`)
+          .get('/teachers/' + this.teacherId + '/subjects' + '?token=' + this.getCookie("Auth-Token"))
           .then(response => {
             this.subjects = response.data
           })
@@ -40,6 +40,13 @@ export default {
             console.log(error)
           })
       }
+    },
+    getCookie () {
+      let name = "Auth-Token"
+      let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ))
+      return matches ? decodeURIComponent(matches[1]) : undefined
     }
   },
 

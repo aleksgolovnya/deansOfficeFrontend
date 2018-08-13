@@ -9,7 +9,7 @@
                       class="form-group">
           <b-form-input id="authLogin"
                         type="text"
-                        v-model="username"
+                        v-model="credentials.email"
                         required
                         placeholder="Введите логин">
           </b-form-input>
@@ -20,15 +20,13 @@
                       class="form-group">
           <b-form-input id="authPassword"
                         type="password"
-                        v-model="password"
+                        v-model="credentials.password"
                         placeholder="Введите пароль"
                         required>
           </b-form-input>
         </b-form-group>
 
         <b-button type="submit" variant="primary" class="log-button">Войти</b-button>
-        <br>
-        <small class="guest-auth" @click="guestAuth">Гостевой режим</small>
       </b-form>
 
       <div class="alert alert-danger" v-if="error">{{ error }}</div>
@@ -44,38 +42,31 @@ export default {
 
   data () {
     return {
-      username: '',
-      password: '',
+      credentials: {
+        email: '',
+        password: ''
+      },
+      token: '',
       error: false
-      // uname: '',
-      // pass: ''
     }
   },
 
   methods: {
     login () {
-      var authCredentials = btoa(this.username + ':' + this.password)
-      axios.defaults.headers.common['Authorization'] = 'Basic ' + authCredentials
-      localStorage.authCredentials = authCredentials
-      this.$router.push('/')
-    },
-    logout () {
-      delete localStorage.authCredentials
-    },
-    guestAuth () {
-      this.$router.push('/')
-      alert('В гостевом режиме доступна только главная страница')
-    }
+      console.log(this.credentials)
 
-    //  TODO: getting token from server
-    //   axios
-    //     .post('http://localhost:8080/login', {authCredentials})
-    //     .then(request => {
-    //       this.loginSuccessful(request)
-    //       axios.defaults.headers.common['Authorization'] = 'Basic ' + authCredentials
-    //     })
-    //     .catch(() => this.loginFailed())
-    // },
+      axios
+        .post('/login', this.credentials)
+        .then(response => {
+          this.token = response.data.value
+          console.log('Token: ', this.token)
+          document.cookie = "Auth-Token=" + this.token
+          this.$router.push('/')
+        })
+        .catch(error => {
+          console.log("Error while authorizing", error)
+        })
+    }
   }
 }
 </script>
@@ -102,14 +93,5 @@ export default {
   }
   .log-button {
     margin-bottom: 10px;
-  }
-  .guest-auth {
-    font-size: 15px;
-    cursor: pointer;
-    color: #000;
-  }
-  .guest-auth:hover {
-    text-decoration: underline;
-    color: #737373;
   }
 </style>

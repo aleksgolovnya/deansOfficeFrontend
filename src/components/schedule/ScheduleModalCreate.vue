@@ -130,7 +130,7 @@ export default {
   methods: {
     getScheduleRecords () {
       axios
-        .get('/schedule')
+        .get('/schedule' + '?token=' + this.getCookie("Auth-Token"))
         .then(response => {
           this.scheduleRecords = response.data
         })
@@ -140,7 +140,7 @@ export default {
     },
     getSubjects () {
       axios
-        .get('/subjects')
+        .get('/subjects' + '?token=' + this.getCookie("Auth-Token"))
         .then(response => {
           this.subjects = response.data
         })
@@ -150,7 +150,7 @@ export default {
     },
     getTeachers () {
       axios
-        .get('/teachers')
+        .get('/teachers' + '?token=' + this.getCookie("Auth-Token"))
         .then(response => {
           this.teachers = response.data
         })
@@ -160,7 +160,7 @@ export default {
     },
     getStudentGroups () {
       axios
-        .get('/groups')
+        .get('/groups' + '?token=' + this.getCookie("Auth-Token"))
         .then(response => {
           this.studentGroups = response.data
         })
@@ -189,7 +189,7 @@ export default {
     },
     handleSubmit () {
       axios.post(
-        `/schedule`,
+        '/schedule' + '?token=' + this.getCookie("Auth-Token"),
         this.scheduleRecord
       )
         .catch(error => {
@@ -200,6 +200,13 @@ export default {
           this.$emit('createSchedule')
           this.$refs.modal.hide()
         })
+    },
+    getCookie () {
+      let name = "Auth-Token"
+      let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ))
+      return matches ? decodeURIComponent(matches[1]) : undefined
     }
   },
 

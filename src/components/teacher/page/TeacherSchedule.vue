@@ -111,7 +111,7 @@ export default {
     getTeacherSchedule () {
       if (this.teacherId !== undefined) {
         axios
-          .get(`/teachers/${this.teacherId}/schedule`)
+          .get('/teachers/' + this.teacherId + '/schedule' + '?token=' + this.getCookie("Auth-Token"))
           .then(response => {
             this.scheduleRecords = response.data
           })
@@ -119,6 +119,13 @@ export default {
             console.log(error)
           })
       }
+    },
+    getCookie () {
+      let name = "Auth-Token"
+      let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ))
+      return matches ? decodeURIComponent(matches[1]) : undefined
     }
   },
 

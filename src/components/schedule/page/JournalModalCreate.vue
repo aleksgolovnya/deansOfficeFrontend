@@ -91,7 +91,7 @@ export default {
     getJournalRecordsForScheduleRecord () {
       if (this.scheduleRecordId !== undefined) {
         axios
-          .get(`/schedule/${this.scheduleRecordId}/journal`)
+          .get('/schedule/' + this.scheduleRecordId + '/journal' + '?token=' + this.getCookie("Auth-Token"))
           .then(response => {
             this.scores = response.data
           })
@@ -113,10 +113,10 @@ export default {
     getStudentGroupStudents () {
       if (this.scheduleRecordId !== undefined) {
         axios
-          .get('/schedule/' + this.scheduleRecordId)
+          .get('/schedule/' + this.scheduleRecordId + '?token=' + this.getCookie("Auth-Token"))
           .then(response => {
             return axios
-              .get('/groups/students/' + response.data.studentsGroupId)
+              .get('/groups/students/' + response.data.studentsGroupId + '?token=' + this.getCookie("Auth-Token"))
               .then(response => {
                 this.students = response.data
               })
@@ -138,18 +138,6 @@ export default {
     closeModalWindow () {
       this.$refs.modal.hide()
     },
-    // handleOk (evt) {
-    //   evt.preventDefault()
-    //   if (!this.journal.scheduleId) {
-    //     alert('Пожалуйста укажите запись рассписания.')
-    //   } else if (!this.journal.studentId) {
-    //     alert('Пожалуйста укажите студента.')
-    //   } else if (!this.journal.mark) {
-    //     alert('Пожалуйста укажите отметку.')
-    //   } else {
-    //     this.handleSubmit()
-    //   }
-    // },
     createJournalRecord (event) {
       event.preventDefault()
       if (!this.journal.scheduleId) {
@@ -170,6 +158,13 @@ export default {
             this.$refs.modal.hide()
           })
       }
+    },
+    getCookie () {
+      let name = "Auth-Token"
+      let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ))
+      return matches ? decodeURIComponent(matches[1]) : undefined
     }
   },
 

@@ -10,33 +10,9 @@
 </template>
 
 <script>
-import axios from 'axios'
 
 export default {
-  name: 'HelloWorld',
-  data () {
-    return {
-      faculties: []
-    }
-  },
-
-  methods: {
-    getFaculties () {
-      axios
-        .get('/faculties')
-        .then(response => {
-          this.faculties = response.data
-        })
-        .catch(error => {
-          console.log(error)
-          this.errored = true
-        })
-    }
-  },
-
-  mounted () {
-    this.getFaculties()
-  }
+  name: 'HelloWorld'
 }
 </script>
 

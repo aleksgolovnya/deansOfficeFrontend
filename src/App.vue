@@ -1,13 +1,13 @@
 <template>
   <div id="app">
     <!-- Навигация -->
-    <nav-bar/>
+    <nav-bar v-show="currentRoute != '/login'"></nav-bar>
 
     <!-- Контент страницы -->
     <router-view/>
 
     <!-- Футер -->
-    <footer-bar/>
+    <footer-bar  v-show="currentRoute != '/login/'"></footer-bar>
   </div>
 </template>
 
@@ -19,9 +19,21 @@ import axios from 'axios'
 export default {
   name: 'App',
 
+  data () {
+    return {
+      currentRoute: this.$router.currentRoute.path
+    }
+  },
+
   components: {
     NavBar,
     FooterBar
+  },
+
+  watch: {
+    '$route' (to, from) {
+      this.currentRoute = to.path
+    }
   },
 
   methods: {

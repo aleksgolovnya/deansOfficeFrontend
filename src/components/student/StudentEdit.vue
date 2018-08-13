@@ -148,7 +148,7 @@ export default {
         alert('Пожалуйста укажите учебную группу для студента.')
       } else {
         axios.put(
-          `/students/${this.student.id}`,
+          '/students/' + this.student.id + '?token=' + this.getCookie("Auth-Token"),
           this.student
         )
           .then(resp => alert('Успешно сохраненно'))
@@ -168,6 +168,13 @@ export default {
     },
     goBack () {
       this.$router.go(-1)
+    },
+    getCookie () {
+      let name = "Auth-Token"
+      let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ))
+      return matches ? decodeURIComponent(matches[1]) : undefined
     }
   },
 

@@ -31,7 +31,7 @@ export default {
     getSpecialtyStudentGroups () {
       if (this.specialtyId !== undefined) {
         axios
-          .get(`/specialties/${this.specialtyId}/student-groups`)
+          .get('/specialties/' + this.specialtyId + '/student-groups' + '?token=' + this.getCookie("Auth-Token"))
           .then(response => {
             this.studentGroups = response.data
           })
@@ -39,6 +39,13 @@ export default {
             console.log(error)
           })
       }
+    },
+    getCookie () {
+      let name = "Auth-Token"
+      let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ))
+      return matches ? decodeURIComponent(matches[1]) : undefined
     }
   },
 
