@@ -1,17 +1,54 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
+      <router-link to="/">Home</router-link>|
+      <router-link to="/about">About</router-link>|
       <router-link to="/userboard">User board</router-link>
+      <span v-if="isLoggedIn">
+        |
+        <button @click="logout">Logout</button>
+      </span>
     </div>
     <router-view/>
   </div>
 </template>
 
+<script>
+export default {
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
+    }
+  },
+
+  methods: {
+    logout() {
+      this.$store.dispatch('logout').then(() => {
+        this.$router.push('/login');
+      });
+    }
+  },
+
+  created() {
+    this.$http.interceptors.response.use(undefined, error => {
+      return new Promise((resolve, reject) => {
+        if (
+          error.status === 401 &&
+          error.config &&
+          !error.config.__isRetryRequest
+        ) {
+          this.$store.dispatch('logout');
+        }
+        throw error;
+      });
+    });
+  }
+};
+</script>
+
 <style lang="scss">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

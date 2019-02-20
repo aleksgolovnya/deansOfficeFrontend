@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import store from './store.js';
 import Home from './views/Home.vue';
 import Login from '@/components/Login';
 import UserBoard from '@/components/UserBoard';
@@ -12,10 +13,7 @@ let router = new Router({
     {
       path: '/',
       name: 'home',
-      component: Home,
-      meta: {
-        guest: true
-      }
+      component: Home
     },
     {
       path: '/about',
@@ -23,18 +21,12 @@ let router = new Router({
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('./views/About.vue'),
-      meta: {
-        guest: true
-      }
+      component: () => import('./views/About.vue')
     },
     {
       path: '/login',
       name: 'login',
-      component: Login,
-      meta: {
-        guest: true
-      }
+      component: Login
     },
     {
       path: '/userboard',
@@ -49,20 +41,11 @@ let router = new Router({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (localStorage.getItem('token') == null) {
-      next({
-        path: '/login',
-        params: { nextUrl: to.fullPath }
-      });
-    } else {
+    if (store.getters.isLoggedIn) {
       next();
+      return;
     }
-  } else if (to.matched.some(record => record.meta.guest)) {
-    if (localStorage.getItem('jwt') == null) {
-      next();
-    } else {
-      next({ name: 'userboard' });
-    }
+    next('/login');
   } else {
     next();
   }

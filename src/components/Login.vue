@@ -2,61 +2,53 @@
   <div>
     <h1>Login</h1>
     <form class="login" @submit.prevent="login">
-      <label for="email">Email</label>
+      <label class="login-element">Email</label>
       <input
-        id="email"
-        type="email"
+        class="login-element"
         v-model="email"
         placeholder="Enter your email"
         required
         autofocus
       >
-      <label for="password">Password</label>
+      <br>
+      <label class="login-element">Password</label>
       <input
-        id="password"
+        class="login-element"
         type="password"
         v-model="password"
         placeholder="Enter your password"
         required
       >
-      <button type="submit">Login</button>
+      <br>
+      <button type="submit" class="login-element">Login</button>
     </form>
   </div>
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       email: '',
       password: ''
     };
   },
   methods: {
-    login () {
-      if (this.password.length > 0) {
-        this.$http
-          .post('/login', {
-            email: this.email,
-            password: this.password
-          })
-          .then(response => {
-            localStorage.setItem('token', response.data.value);
-
-            if (localStorage.getItem('token') != null) {
-              this.$emit('loggedIn');
-              if (this.$route.params.nextUrl != null) {
-                this.$router.push(this.$route.params.nextUrl);
-              } else {
-                this.$router.push('userboard');
-              }
-            }
-          })
-          .catch(function (error) {
-            console.error(error.response);
-          });
-      }
+    login() {
+      const email = this.email;
+      const password = this.password;
+      this.$store
+        .dispatch('login', { email, password })
+        .then(() => this.$router.push('/'))
+        .catch(err => console.log(err));
     }
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.login-element {
+  padding: 5px;
+  margin: 5px;
+}
+</style>
