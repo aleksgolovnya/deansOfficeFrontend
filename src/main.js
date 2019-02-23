@@ -9,7 +9,7 @@ Vue.config.productionTip = false;
 Vue.prototype.$http = Axios;
 const token = localStorage.getItem('token');
 if (token) {
-  Vue.prototype.$http.defaults.headers.common['Authorization'] = token;
+  Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 }
 Vue.prototype.$http.defaults.baseURL = 'http://localhost:8085/api';
 

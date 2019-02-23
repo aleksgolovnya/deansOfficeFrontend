@@ -1,26 +1,24 @@
 <template>
   <div>
-    <h1>Login</h1>
-    <form class="login" @submit.prevent="login">
-      <label class="login-element">Email</label>
+    <form class="login-form" @submit.prevent="login">
+      <h1>Sign in</h1>
+      <span v-if="loginError == true" class="login-element-error">Incorrect email or password</span>
       <input
-        class="login-element"
+        :class="loginError ? 'login-element-input-error' : 'login-element-input'"
+        type="text"
         v-model="email"
         placeholder="Enter your email"
         required
         autofocus
       >
-      <br>
-      <label class="login-element">Password</label>
       <input
-        class="login-element"
+        :class="loginError ? 'login-element-input-error' : 'login-element-input'"
         type="password"
         v-model="password"
         placeholder="Enter your password"
         required
       >
-      <br>
-      <button type="submit" class="login-element">Login</button>
+      <button type="submit" class="login-element-button">Login</button>
     </form>
   </div>
 </template>
@@ -29,8 +27,9 @@
 export default {
   data() {
     return {
-      email: '',
-      password: ''
+      email: "",
+      password: "",
+      loginError: false
     };
   },
   methods: {
@@ -38,17 +37,105 @@ export default {
       const email = this.email;
       const password = this.password;
       this.$store
-        .dispatch('login', { email, password })
-        .then(() => this.$router.push('/'))
-        .catch(err => console.log(err));
+        .dispatch("login", { email, password })
+        .then(() => this.$router.push("/"))
+        .catch(error => {
+          console.log(error);
+          if (
+            error.response.data.message === "Incorrect password" &&
+            error.response.status === 500
+          ) {
+            this.loginError = true;
+          }
+        });
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.login-element {
-  padding: 5px;
-  margin: 5px;
+.login-form {
+  width: 500px;
+  padding: 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #f7f7f7;
+  text-align: center;
+  border: none;
+  border-radius: 34px;
+  box-shadow: 5px 7px 10px #e2e2e2;
+}
+
+.login-form h1 {
+  color: rgb(43, 43, 43);
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 35px;
+}
+
+.login-element-input {
+  border: 0;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  font-size: 15px;
+  border: 2px solid #3498db;
+  padding: 12px 10px;
+  width: 350px;
+  outline: none;
+  color: #3a3a3a;
+  border-radius: 24px;
+  transition: 0.25s;
+}
+
+.login-element-input:focus {
+  width: 400px;
+  border-color: #2ecc71;
+}
+
+.login-element-input-error {
+  border: 0;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  font-size: 15px;
+  border: 2px solid #db5127;
+  background-color: #fff0f0fa;
+  padding: 12px 10px;
+  width: 350px;
+  outline: none;
+  color: #3a3a3a;
+  border-radius: 24px;
+  transition: 0.25s;
+}
+
+.login-element-button {
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: none;
+  padding: 10px 40px;
+  outline: none;
+  color: #fdfdfd;
+  font-size: 20px;
+  border-radius: 24px;
+  transition: 0.25s;
+  background-color: #2b77aa;
+  cursor: pointer;
+}
+
+.login-element-button:hover {
+  background: #3498db;
+}
+
+.login-element-error {
+  background-color: #e94747;
+  color: rgb(252, 252, 252);
+  font-size: 15px;
+  padding: 5px 15px;
+  border-radius: 24px;
+  opacity: 0.75;
 }
 </style>

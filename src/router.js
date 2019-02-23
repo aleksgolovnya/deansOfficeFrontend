@@ -24,6 +24,14 @@ let router = new Router({
       component: () => import('./views/About.vue')
     },
     {
+      path: '/faculty',
+      name: 'faculty',
+      component: () => import('./components/FacultyIndex.vue'),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: '/login',
       name: 'login',
       component: Login

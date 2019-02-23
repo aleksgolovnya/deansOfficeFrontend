@@ -3,6 +3,7 @@
     <div id="nav">
       <router-link to="/">Home</router-link>|
       <router-link to="/about">About</router-link>|
+      <router-link to="/faculty">Faculty</router-link>|
       <router-link to="/userboard">User board</router-link>
       <span v-if="isLoggedIn">
         |
