@@ -2,17 +2,9 @@
   <div id="app">
     <NavigationHeader/>
     <NavigationBar/>
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link>|
-      <router-link to="/about">About</router-link>|
-      <router-link to="/faculty">Faculty</router-link>|
-      <router-link to="/userboard">User board</router-link>
-      <span v-if="isLoggedIn">
-        |
-        <button @click="logout">Logout</button>
-      </span>
-    </div> -->
-    <router-view/>
+    <transition name="moveInUp">
+         <router-view/>
+  </transition>
   </div>
 </template>
 
@@ -64,14 +56,20 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+
+// animation for vue-router
+.moveInUp-enter-active{
+  animation: fadeIn 1s ease-in;
+}
+@keyframes fadeIn{
+  0%{
+    opacity: 0;
+  }
+  50%{
+    opacity: 0.5;
+  }
+  100%{
+    opacity: 1;
   }
 }
 </style>
