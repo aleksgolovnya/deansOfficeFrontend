@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <NavigationHeader/>
+    <NavigationBar/>
+    <!-- <div id="nav">
       <router-link to="/">Home</router-link>|
       <router-link to="/about">About</router-link>|
       <router-link to="/faculty">Faculty</router-link>|
@@ -9,12 +11,15 @@
         |
         <button @click="logout">Logout</button>
       </span>
-    </div>
+    </div> -->
     <router-view/>
   </div>
 </template>
 
 <script>
+import NavigationBar from '@/components/NavigationBar.vue';
+import NavigationHeader from '@/components/NavigationHeader.vue';
+
 export default {
   computed: {
     isLoggedIn() {
@@ -28,6 +33,10 @@ export default {
         this.$router.push('/login');
       });
     }
+  },
+
+  components: {
+    NavigationBar, NavigationHeader
   },
 
   created() {

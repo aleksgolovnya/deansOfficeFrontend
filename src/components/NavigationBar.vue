@@ -1,0 +1,49 @@
+<template>
+  <div class="navbar">
+    <router-link to="/" class="navbar-link">Home</router-link>
+    <router-link to="/about" class="navbar-link">About</router-link>
+    <router-link to="/faculty" class="navbar-link">Faculty</router-link>
+    <router-link to="/userboard" class="navbar-link">User board</router-link>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'NavigationBar'
+};
+</script>
+
+<style scoped>
+.navbar {
+  /* overflow: hidden; */
+  background-color: #fff;
+  position: sticky;
+  overflow: hidden;
+  top: 0;
+  width: 100%;
+  opacity: 0.95;
+  display: flex;
+  justify-content: center;
+}
+
+/* Links inside the navbar */
+.navbar-link {
+  float: left;
+  display: block;
+  color: #616161;
+  text-align: center;
+  padding: 12px 16px;
+  text-decoration: none;
+}
+
+/* Change background on mouse-over */
+.navbar a:hover {
+  background-color: rgb(238, 238, 238);
+  color: black;
+}
+
+.router-link-exact-active {
+  background-color: rgb(238, 238, 238);
+  color: #000;
+}
+</style>

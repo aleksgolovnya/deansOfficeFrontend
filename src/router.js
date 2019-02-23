@@ -1,13 +1,14 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import store from './store.js';
+import NProgress from 'nprogress';
 import Home from './views/Home.vue';
 import Login from '@/components/Login';
 import UserBoard from '@/components/UserBoard';
 
 Vue.use(Router);
 
-let router = new Router({
+const router = new Router({
   mode: 'history',
   routes: [
     {
@@ -57,6 +58,20 @@ router.beforeEach((to, from, next) => {
   } else {
     next();
   }
+});
+
+router.beforeResolve((to, from, next) => {
+  // If this isn't an initial page load.
+  if (to.name) {
+    // Start the route progress bar.
+    NProgress.start();
+  }
+  next();
+});
+
+router.afterEach((to, from) => {
+  // Complete the animation of the route progress bar.
+  NProgress.done();
 });
 
 export default router;

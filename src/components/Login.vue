@@ -1,24 +1,23 @@
 <template>
   <div>
     <form class="login-form" @submit.prevent="login">
-      <h1>Sign in</h1>
-      <span v-if="loginError == true" class="login-element-error">Incorrect email or password</span>
+      <h1>Вход в систему</h1>
+      <span v-if="loginError == true" class="login-element-error">Неверный email или пароль</span>
       <input
         :class="loginError ? 'login-element-input-error' : 'login-element-input'"
         type="text"
         v-model="email"
-        placeholder="Enter your email"
+        placeholder="Введите ваш email"
         required
-        autofocus
       >
       <input
         :class="loginError ? 'login-element-input-error' : 'login-element-input'"
         type="password"
         v-model="password"
-        placeholder="Enter your password"
+        placeholder="Введите ваш пароль"
         required
       >
-      <button type="submit" class="login-element-button">Login</button>
+      <button type="submit" class="login-element-button">Войти</button>
     </form>
   </div>
 </template>
@@ -27,8 +26,8 @@
 export default {
   data() {
     return {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
       loginError: false
     };
   },
@@ -37,12 +36,12 @@ export default {
       const email = this.email;
       const password = this.password;
       this.$store
-        .dispatch("login", { email, password })
-        .then(() => this.$router.push("/"))
+        .dispatch('login', { email, password })
+        .then(() => this.$router.push('/'))
         .catch(error => {
           console.log(error);
           if (
-            error.response.data.message === "Incorrect password" &&
+            error.response.data.message === 'Incorrect password' &&
             error.response.status === 500
           ) {
             this.loginError = true;
@@ -55,7 +54,7 @@ export default {
 
 <style lang="scss" scoped>
 .login-form {
-  width: 500px;
+  width: 550px;
   padding: 40px;
   position: absolute;
   top: 50%;
@@ -83,7 +82,7 @@ export default {
   font-size: 15px;
   border: 2px solid #3498db;
   padding: 12px 10px;
-  width: 350px;
+  width: 400px;
   outline: none;
   color: #3a3a3a;
   border-radius: 24px;
@@ -91,7 +90,7 @@ export default {
 }
 
 .login-element-input:focus {
-  width: 400px;
+  width: 450px;
   border-color: #2ecc71;
 }
 
@@ -101,8 +100,8 @@ export default {
   margin: 20px auto;
   text-align: center;
   font-size: 15px;
-  border: 2px solid #db5127;
-  background-color: #fff0f0fa;
+  border: 2px solid #db866b;
+  background-color: #fcf5f5fa;
   padding: 12px 10px;
   width: 350px;
   outline: none;
@@ -132,7 +131,7 @@ export default {
 
 .login-element-error {
   background-color: #e94747;
-  color: rgb(252, 252, 252);
+  color: rgb(255, 255, 255);
   font-size: 15px;
   padding: 5px 15px;
   border-radius: 24px;

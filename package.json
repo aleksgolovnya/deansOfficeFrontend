@@ -10,7 +10,10 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "nprogress": "^0.2.0",
     "vue": "^2.6.6",
+    "vue-nprogress": "^0.1.5",
+    "vue-progressbar": "^0.7.5",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"

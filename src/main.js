@@ -4,8 +4,12 @@ import router from './router';
 import store from './store';
 import Axios from 'axios';
 
-Vue.config.productionTip = false;
+import NProgress from 'nprogress';
+import '../node_modules/nprogress/nprogress.css';
 
+Vue.use(NProgress);
+
+Vue.config.productionTip = false;
 Vue.prototype.$http = Axios;
 const token = localStorage.getItem('token');
 if (token) {
