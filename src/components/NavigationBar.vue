@@ -2,7 +2,6 @@
   <div class="navbar">
     <router-link to="/" class="navbar-link">Home</router-link>
     <router-link to="/about" class="navbar-link">About</router-link>
-    <router-link to="/faculty" class="navbar-link">Faculty</router-link>
     <router-link to="/userboard" class="navbar-link">User board</router-link>
   </div>
 </template>
@@ -38,12 +37,12 @@ export default {
 
 /* Change background on mouse-over */
 .navbar a:hover {
-  background-color: rgb(238, 238, 238);
+  background-color: #f1f1f1;
   color: black;
 }
 
 .router-link-exact-active {
-  background-color: rgb(238, 238, 238);
+  background-color: #f1f1f1;
   color: #000;
 }
 </style>

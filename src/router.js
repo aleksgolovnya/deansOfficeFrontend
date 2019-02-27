@@ -5,6 +5,8 @@ import NProgress from 'nprogress';
 import Home from './views/Home.vue';
 import Login from '@/components/Login';
 import UserBoard from '@/components/UserBoard';
+import UserPage from '@/components/UserPage';
+import UserCreate from '@/components/UserCreate';
 
 Vue.use(Router);
 
@@ -25,14 +27,6 @@ const router = new Router({
       component: () => import('./views/About.vue')
     },
     {
-      path: '/faculty',
-      name: 'faculty',
-      component: () => import('./components/FacultyIndex.vue'),
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
       path: '/login',
       name: 'login',
       component: Login
@@ -44,6 +38,19 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: '/personal',
+      name: 'userPage',
+      component: UserPage,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: UserCreate
     }
   ]
 });

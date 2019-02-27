@@ -3,12 +3,7 @@
     <h1>Welcome to regular users page</h1>
     <h2>{{msg}}</h2>
 
-    <ul
-      v-for="user in users"
-      :key="user.id"
-    >
-      <li>{{user.email + ' >>> ' + user.password}}</li>
-    </ul>
+    <h1>{{user.firstName + ' >>> ' + user.role}}</h1>
 
     <section v-if="isError">
       <p>К сожалению, запрашиваемая информация не доступна в данный момент</p>
@@ -24,16 +19,16 @@ export default {
   data() {
     return {
       msg: 'The commoners',
-      users: [],
+      user: '',
       isError: false
     };
   },
 
   methods: {
-    getAllUsers() {
-      this.$http.get('/users')
+    getUser() {
+      this.$http.get('/users/' + this.userId)
         .then(response => {
-          this.users = response.data.content;
+          this.user = response.data;
         })
         .catch(error => {
           console.log(error);
@@ -42,8 +37,14 @@ export default {
     }
   },
 
+  computed: {
+    userId() {
+      return this.$store.getters.userId
+    }
+  },
+
   mounted() {
-    this.getAllUsers();
+    this.getUser();
   }
 };
 </script>

@@ -4,13 +4,15 @@
     <NavigationBar/>
     <transition name="moveInUp">
          <router-view/>
-  </transition>
+    </transition>
+    <!-- <FooterBar/> -->
   </div>
 </template>
 
 <script>
 import NavigationBar from '@/components/NavigationBar.vue';
 import NavigationHeader from '@/components/NavigationHeader.vue';
+import FooterBar from '@/components/FooterBar.vue';
 
 export default {
   computed: {
@@ -28,7 +30,7 @@ export default {
   },
 
   components: {
-    NavigationBar, NavigationHeader
+    NavigationBar, NavigationHeader, FooterBar
   },
 
   created() {
@@ -55,6 +57,9 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+//   min-height: calc(100vh - 120px);
+//  overflow: hidden;
+//  padding-bottom: 100px; /* height of your footer */
 }
 
 // animation for vue-router

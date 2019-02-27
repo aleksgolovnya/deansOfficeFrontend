@@ -3,7 +3,17 @@
     <div class="header-text">
       <h2>Электронный университет</h2>
     </div>
+
+    <!-- <div class="user">
+      <p>{{ userFirstLastName }}</p>
+    </div> -->
+
     <div class="header-button">
+      <button
+        class="auth-button"
+        @click="redirectToUserPersonalPage"
+        v-if="isLoggedIn"
+      >Личный кабинет</button>
       <button
         class="auth-button"
         @click="logout"
@@ -16,7 +26,7 @@
       >Войти</button>
       <button
         class="auth-button"
-        @click="redirectToLogin"
+        @click="redirectToSignUp"
         v-if="!isLoggedIn"
       >Регистрация</button>
     </div>
@@ -30,6 +40,10 @@ export default {
   computed: {
     isLoggedIn() {
       return this.$store.getters.isLoggedIn;
+    },
+
+    userFirstLastName() {
+      return this.$store.getters.userFirstLastName
     }
   },
 
@@ -41,6 +55,12 @@ export default {
     },
     redirectToLogin() {
       this.$router.push('/login');
+    },
+    redirectToSignUp() {
+      this.$router.push('/signup');
+    },
+    redirectToUserPersonalPage() {
+      this.$router.push('/personal');
     }
   }
 };
@@ -55,7 +75,6 @@ export default {
 
 .header-text h2 {
   margin-top: 5px;
-  /* padding: 0px; */
   font-size: 25px;
   font-weight: 500;
   color: #2c3e50;
@@ -71,7 +90,6 @@ export default {
   max-width: 1200px;
   margin: auto;
   padding: 0px 20px;
-  height: 40px;
 }
 
 .auth-button {
@@ -89,7 +107,19 @@ export default {
   cursor: pointer;
 }
 
+.user {
+  display: block;
+  text-align: center;
+  padding: 0 14px;
+  margin-left: 16px;
+  outline: none;
+  color: #2b2b2b;
+  font-size: 15px;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
 .auth-button:hover {
-  background: #f0f0f0;
+  background: #f7f7f7;
 }
 </style>

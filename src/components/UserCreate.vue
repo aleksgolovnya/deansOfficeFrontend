@@ -1,23 +1,50 @@
 <template>
   <div>
-    <form class="login-form" @submit.prevent="login">
-      <h1>Вход в систему</h1>
-      <span v-if="loginError == true" class="login-element-error">{{ errorMessage }}</span>
+    <form class="login-form" @submit.prevent="createUser">
+      <h1>Создать новый аккаунт</h1>
+
+      <span v-if="isError == true" class="login-element-error">Непредвиденная ошибка, попробуйте еще раз</span>
+
       <input
-        :class="loginError ? 'login-element-input-error' : 'login-element-input'"
-        type="text"
-        v-model="email"
+        :class="isError ? 'login-element-input-error' : 'login-element-input'"
+        type="email"
+        v-model="user.email"
         placeholder="Введите ваш email"
         required
       >
       <input
-        :class="loginError ? 'login-element-input-error' : 'login-element-input'"
+        :class="isError ? 'login-element-input-error' : 'login-element-input'"
         type="password"
-        v-model="password"
+        v-model="user.password"
         placeholder="Введите ваш пароль"
         required
       >
-      <button type="submit" class="login-element-button">Войти</button>
+
+      <input
+        :class="isError ? 'login-element-input-error' : 'login-element-input'"
+        type="text"
+        v-model="user.lastName"
+        placeholder="Введите вашу фамилию"
+        required
+      >
+
+      <input
+        :class="isError ? 'login-element-input-error' : 'login-element-input'"
+        type="text"
+        v-model="user.firstName"
+        placeholder="Введите вашу имя"
+        required
+      >
+
+      <input
+        :class="isError ? 'login-element-input-error' : 'login-element-input'"
+        type="text"
+        v-model="user.middleName"
+        placeholder="Введите вашу отчество"
+        required
+      >
+      
+      <button type="submit" class="login-element-button">Зарегистрироваться</button>
     </form>
   </div>
 </template>
@@ -26,37 +53,36 @@
 export default {
   data() {
     return {
-      email: '',
-      password: '',
-      loginError: false,
-      errorMessage: ''
+      msg: 'The commoners',
+      isError: false,
+      user: {
+        email: '',
+        password: '',
+        firstName: '',
+        middleName: '',
+        lastName: ''
+      }
     };
   },
+
   methods: {
-    login() {
-      const email = this.email;
-      const password = this.password;
-      this.$store
-        .dispatch('login', { email, password })
-        .then(() => this.$router.push('/'))
+    createUser() {
+      this.$http.post('/signup', this.user)
         .catch(error => {
           console.log(error);
-          if (error.response != null && error.response.status === 500) {
-            this.loginError = true;
-            if (error.response.data.message === 'User not found') {
-              this.errorMessage = 'Такого пользователя не существует'
-            }
-            if (error.response.data.message === 'Incorrect password') {
-              this.errorMessage = 'Неверный email или пароль'
-            }
-          }
+          this.isError = true;
+        })
+        .then(success => {
+          console.log(this.user)
+          // this.$emit('createFaculty');
+          alert('Пользователь успешно создан');
         });
     }
   }
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .login-form {
   width: 550px;
   padding: 40px;
@@ -66,7 +92,7 @@ export default {
   transform: translate(-50%, -50%);
   background: #fcfcfc;
   text-align: center;
-  // border: 1px solid #b4b4b4;
+  /* border: 1px solid #b4b4b4; */
   border-radius: 34px;
   box-shadow: 1px 3px 10px 1px #e2e2e2;
 }
