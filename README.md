@@ -1,4 +1,5 @@
-# test-app
+# university-spa-frontend
+Single page application for managing university, provides CRUD services for faculties, departments, specialties, users, student groups.
 
 ## Project setup
 ```
