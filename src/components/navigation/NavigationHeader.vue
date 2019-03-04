@@ -89,7 +89,7 @@ export default {
 .header {
   max-width: 1200px;
   margin: auto;
-  padding: 0px 20px;
+  padding: 10px 20px;
 }
 
 .auth-button {

@@ -1,4 +1,4 @@
-# university-spa-frontend-v2
+# test-app
 
 ## Project setup
 ```

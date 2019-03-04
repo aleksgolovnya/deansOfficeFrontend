@@ -3,10 +3,22 @@ import Router from 'vue-router';
 import store from './store.js';
 import NProgress from 'nprogress';
 import Home from './views/Home.vue';
-import Login from '@/components/Login';
-import UserBoard from '@/components/UserBoard';
-import UserPage from '@/components/UserPage';
-import UserCreate from '@/components/UserCreate';
+import Login from '@/components/user/Login';
+import UserPage from '@/components/user/UserPage';
+import UserCreate from '@/components/user/UserCreate';
+
+import FacultyIndex from '@/components/faculty/FacultyIndex';
+import FacultyShow from '@/components/faculty/page/FacultyShow';
+import FacultyEdit from '@/components/faculty/FacultyEdit';
+import DepartmentIndex from '@/components/department/DepartmentIndex';
+import DepartmentShow from '@/components/department/page/DepartmentShow';
+import DepartmentEdit from '@/components/department/DepartmentEdit';
+import SpecialtyIndex from '@/components/specialty/SpecialtyIndex';
+import SpecialtyShow from '@/components/specialty/page/SpecialtyShow';
+import SpecialtyEdit from '@/components/specialty/SpecialtyEdit';
+import StudentGroupIndex from '@/components/student-group/StudentGroupIndex';
+import StudentGroupShow from '@/components/student-group/page/StudentGroupShow';
+import StudentGroupEdit from '@/components/student-group/edit/StudentGroupEdit';
 
 Vue.use(Router);
 
@@ -18,26 +30,11 @@ const router = new Router({
       name: 'home',
       component: Home
     },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('./views/About.vue')
-    },
+
     {
       path: '/login',
       name: 'login',
       component: Login
-    },
-    {
-      path: '/userboard',
-      name: 'userboard',
-      component: UserBoard,
-      meta: {
-        requiresAuth: true
-      }
     },
     {
       path: '/personal',
@@ -51,6 +48,108 @@ const router = new Router({
       path: '/signup',
       name: 'signup',
       component: UserCreate
+    },
+
+    /**
+     * Факультет
+     */
+    {
+      path: '/faculties',
+      name: 'FacultyIndex',
+      component: FacultyIndex,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/faculties/:id',
+      name: 'FacultyShow',
+      component: FacultyShow,
+      props: true,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/faculties/edit/:id',
+      name: 'FacultyEdit',
+      component: FacultyEdit,
+      meta: { requiresAuth: true }
+    },
+
+    /**
+     * Кафедра
+     */
+    {
+      path: '/departments',
+      name: 'DepartmentIndex',
+      component: DepartmentIndex,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/departments/:id',
+      name: 'DepartmentShow',
+      component: DepartmentShow,
+      props: true,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/departments/edit/:id',
+      name: 'DepartmentEdit',
+      component: DepartmentEdit,
+      meta: { requiresAuth: true }
+    },
+
+    /**
+     * Специальность
+     */
+    {
+      path: '/specialties',
+      name: 'SpecialtyIndex',
+      component: SpecialtyIndex,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/specialties/:id',
+      name: 'SpecialtyShow',
+      component: SpecialtyShow,
+      props: true,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/specialties/edit/:id',
+      name: 'SpecialtytEdit',
+      component: SpecialtyEdit,
+      meta: { requiresAuth: true }
+    },
+
+    /**
+     * Группа студентов
+     */
+    {
+      path: '/student-groups',
+      name: 'StudentGroupIndex',
+      component: StudentGroupIndex,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/student-groups/:id',
+      name: 'StudentGroupShow',
+      component: StudentGroupShow,
+      props: true,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/student-groups/edit/:id',
+      name: 'StudentGrouptEdit',
+      component: StudentGroupEdit,
+      meta: { requiresAuth: true }
+    },
+
+    {
+      path: '/notfound',
+      name: 'notfound',
+      component: () => import('./components/NotFound.vue')
+    },
+    {
+      path: '*',
+      redirect: '/notfound'
     }
   ]
 });

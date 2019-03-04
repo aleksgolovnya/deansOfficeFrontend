@@ -10,9 +10,9 @@
 </template>
 
 <script>
-import NavigationBar from '@/components/NavigationBar.vue';
-import NavigationHeader from '@/components/NavigationHeader.vue';
-import FooterBar from '@/components/FooterBar.vue';
+import NavigationBar from '@/components/navigation/NavigationBar.vue';
+import NavigationHeader from '@/components/navigation/NavigationHeader.vue';
+import FooterBar from '@/components/navigation/FooterBar.vue';
 
 export default {
   computed: {
@@ -43,6 +43,13 @@ export default {
         ) {
           this.$store.dispatch('logout');
         }
+
+        if (
+          error.status === 403
+        ) {
+          this.$router.push('/notfound');
+        }
+
         throw error;
       });
     });

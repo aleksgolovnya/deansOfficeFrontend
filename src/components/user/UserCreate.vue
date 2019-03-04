@@ -7,7 +7,7 @@
 
       <input
         :class="isError ? 'login-element-input-error' : 'login-element-input'"
-        type="email"
+        type="text"
         v-model="user.email"
         placeholder="Введите ваш email"
         required
@@ -67,15 +67,14 @@ export default {
 
   methods: {
     createUser() {
-      this.$http.post('/signup', this.user)
+      const user = this.user;
+      this.$store
+        .dispatch('signup', user)
+        .then(() => {
+          this.$router.push('/login')
+        })
         .catch(error => {
           console.log(error);
-          this.isError = true;
-        })
-        .then(success => {
-          console.log(this.user)
-          // this.$emit('createFaculty');
-          alert('Пользователь успешно создан');
         });
     }
   }

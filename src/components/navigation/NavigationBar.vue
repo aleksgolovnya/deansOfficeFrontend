@@ -1,14 +1,17 @@
 <template>
   <div class="navbar">
-    <router-link to="/" class="navbar-link">Home</router-link>
-    <router-link to="/about" class="navbar-link">About</router-link>
-    <router-link to="/userboard" class="navbar-link">User board</router-link>
+    <router-link to="/" class="navbar-link">Главная</router-link>
+    <router-link to="/faculties" class="navbar-link">Факультеты</router-link>
+    <router-link to="/departments" class="navbar-link">Кафедры</router-link>
+    <router-link to="/specialties" class="navbar-link">Специальности</router-link>
+    <router-link to="/student-groups" class="navbar-link">Группы студентов</router-link>
+
   </div>
 </template>
 
 <script>
 export default {
-  name: 'NavigationBar'
+  name: 'NavigationBar',
 };
 </script>
 
@@ -16,7 +19,7 @@ export default {
 .navbar {
   /* overflow: hidden; */
   background-color: #fff;
-  position: sticky;
+  /* position: sticky; */
   overflow: hidden;
   top: 0;
   width: 100%;
