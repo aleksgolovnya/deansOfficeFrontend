@@ -10,6 +10,10 @@ npm install
 ```
 npm run serve
 ```
+### Admin user
+To login with admin rules you can use test user with this credentials:
+- email: admin
+- password: admin
 
 ### Compiles and minifies for production
 ```
